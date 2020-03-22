@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import styled from "styled-components";
 
 const StyledPlayer = styled.div`
@@ -40,7 +40,25 @@ const StyledPlayer = styled.div`
   }
 `;
 
+const pickRandom = () => {
+  const randomNumber = Math.floor(Math.random() * 1000) % 3;
+  if (randomNumber === 0) {
+    return "scissors";
+  } else if (randomNumber === 1) {
+    return "rock";
+  } else if (randomNumber === 2) {
+    return "paper";
+  }
+};
+
 const Player = props => {
+  useEffect(() => {
+    if(props.isRunning && props.player === 'p2') {
+      const card = pickRandom();
+      props.pickCard({player: 'p2', pick: card})
+    }
+  }, [props.isRunning])
+  
   return (
     <StyledPlayer>
       <h2>{props.player}</h2>

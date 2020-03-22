@@ -121,7 +121,7 @@ const gameReducer = (state = initialState, action) => {
         ...state,
         scores: state.scores.map(score =>
           score.set === action.input.set
-            ? {...score, winner: action.input.winner}
+            ? { ...score, winner: action.input.winner }
             : score
         )
       };

@@ -33,7 +33,7 @@ const StyledGameArea = styled.section`
 
 const Game = props => {
   const handleDebug = () => {
-    props.updateSetWinner({set: 1, winner: 'p1'})
+    console.log(Math.floor(Math.random() * 1000) % 3);
   };
   return (
     <div>
@@ -45,9 +45,9 @@ const Game = props => {
           <button onClick={props.restartGame}>재시작</button>
           <button onClick={props.quitGame}>그만하기</button>
         </div>
-        <Player player={"P1"} />
+        <Player player={"p1"} isRunning={props.isRunning} pickCard={props.pickCard} />
         <Timer />
-        <Player player={"P2"} />
+        <Player player={"p2"} isRunning={props.isRunning} pickCard={props.pickCard} />
       </StyledGameArea>
     </div>
   );
