@@ -41,8 +41,6 @@ const Game = props => {
   };
 
   const [isTimerRunning, setIsTimerRunning] = useState(false);
-  const onTimeOut = () =>
-    props.updateScore({ set: props.currentSet, player: "p2" });
 
   useEffect(() => {
     if (
@@ -61,6 +59,19 @@ const Game = props => {
       }
     }
   }, [props.pick_p1, props.pick_p2]);
+
+  // 어느 한쪽이 3게임을 먼저 승리하면 해당 세트 승리
+  useEffect(() => {
+    if (props.currentSet >= 1) {
+      if (props.scores[props.currentSet - 1].p1 === 3) {
+        props.updateSetWinner({ set: props.currentSet, winner: "p1" });
+        props.increaseSet();
+      } else if (props.scores[props.currentSet - 1].p1 === 3) {
+        props.updateSetWinner({ set: props.currentSet, winner: "p2" });
+        props.increaseSet();
+      }
+    }
+  }, [props.scores]);
 
   const getRoundWinner = (pick_p1, pick_p2) => {
     if (pick_p1 === pick_p2) {
@@ -87,6 +98,9 @@ const Game = props => {
       }
     }
   };
+
+  const onTimeOut = () =>
+    props.updateScore({ set: props.currentSet, player: "p2" });
 
   const resetPicks = () => {
     props.pickCard({ player: "p1", pick: "" });
