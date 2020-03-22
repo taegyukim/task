@@ -44,6 +44,8 @@ const gameReducer = (state = initialState, action) => {
     case GAME_START: {
       return {
         ...state,
+        currentSet:
+          state.currentSet === 0 ? state.currentSet + 1 : state.currentSet,
         isRunning: true
       };
     }
@@ -56,7 +58,7 @@ const gameReducer = (state = initialState, action) => {
     case GAME_RESTART: {
       return {
         isRunning: true,
-        currentSet: 0,
+        currentSet: 1,
         score: [
           { set: 1, p1: 0, p2: 0 },
           { set: 2, p1: 0, p2: 0 },

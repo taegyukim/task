@@ -31,13 +31,13 @@ const StyledGameArea = styled.section`
   }
 `;
 
-const Game = (props) => {
-    const handleDebug = () => {
-        console.log(props.isRunning)
-    }
+const Game = props => {
+  const handleDebug = () => {
+    console.log(props.isRunning);
+  };
   return (
     <div>
-      <Panel />
+      <Panel score={props.score} currentSet={props.currentSet} />
       <button onClick={handleDebug}>디버그</button>
       <StyledGameArea>
         <div className={"game-buttons"}>
