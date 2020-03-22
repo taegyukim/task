@@ -35,7 +35,7 @@ const Panel = props => {
             {props.scores.map((score, index) => (
               <td
                 key={`set ${index + 1}`}
-                className={props.currentSet === 1 ? "running" : ""}
+                className={props.currentSet === score.set ? "running" : ""}
               >{`${index + 1} 세트`}</td>
             ))}
             <td>최종</td>
