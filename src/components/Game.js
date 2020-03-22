@@ -36,6 +36,24 @@ const Game = props => {
     console.log(Math.floor(Math.random() * 1000) % 3);
   };
 
+  useEffect(() => {
+    if (
+      props.isRunning === true &&
+      props.pick_p1 !== "" &&
+      props.pick_p2 !== ""
+    ) {
+      const result = getRoundWinner(props.pick_p1, props.pick_p2);
+      if (result === "draw") {
+        alert("무승부입니다!");
+        props.stopGame();
+      } else {
+        alert(`${result} 승리!`);
+        props.updateScore({ set: props.currentSet, player: result });
+        props.stopGame();
+      }
+    }
+  }, [props.pick_p1, props.pick_p2]);
+
   const getRoundWinner = (pick_p1, pick_p2) => {
     if (pick_p1 === pick_p2) {
       return "draw";
@@ -62,28 +80,11 @@ const Game = props => {
     }
   };
 
-  useEffect(() => {
-    if (
-      props.isRunning === true &&
-      props.pick_p1 !== "" &&
-      props.pick_p2 !== ""
-    ) {
-      const result = getRoundWinner(props.pick_p1, props.pick_p2);
-      if (result === "draw") {
-        alert("무승부입니다!");
-        props.stopGame();
-      } else {
-        alert(`${result} 승리!`);
-        props.updateScore({ set: props.currentSet, player: result });
-        props.stopGame();
-      }
-    }
-  }, [props.pick_p1, props.pick_p2]);
-
   const resetPicks = () => {
     props.pickCard({ player: "p1", pick: "" });
     props.pickCard({ player: "p2", pick: "" });
   };
+
   const onGameStart = () => {
     if (props.isRunning) {
       alert("이미 게임이 진행중입니다!");

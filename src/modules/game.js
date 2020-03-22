@@ -63,14 +63,20 @@ const gameReducer = (state = initialState, action) => {
       return {
         isRunning: true,
         currentSet: 1,
-        scores: [{ set: 1, p1: 0, p2: 0 }]
+        scores: [{ set: 1, p1: 0, p2: 0, winner: "" }],
+        pick_p1: "",
+        pick_p2: "",
+        winner: ""
       };
     }
     case GAME_QUIT: {
       return {
         isRunning: false,
         currentSet: 0,
-        scores: [{ set: 1, p1: 0, p2: 0 }]
+        scores: [{ set: 1, p1: 0, p2: 0, winner: "" }],
+        pick_p1: "",
+        pick_p2: "",
+        winner: ""
       };
     }
     case INCREASE_SET: {
