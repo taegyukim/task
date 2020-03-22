@@ -51,22 +51,22 @@ const pickRandom = () => {
   }
 };
 
-const pickFormatter = (pick) => {
-  switch(pick){
-    case 'scissors': {
-      return '가위'
+const pickFormatter = pick => {
+  switch (pick) {
+    case "scissors": {
+      return "가위";
     }
-    case 'rock': {
-      return '바위'
+    case "rock": {
+      return "바위";
     }
-    case 'paper': {
-      return '보'
+    case "paper": {
+      return "보";
     }
     default: {
-      return ''
+      return "";
     }
   }
-}
+};
 
 const Player = props => {
   useEffect(() => {
@@ -76,25 +76,47 @@ const Player = props => {
     }
   }, [props.isRunning]);
 
-  const handleP1Pick = (pick) => {
-    if(props.isRunning === false) {
-      alert('게임 중이 아닙니다!');
+  const handleP1Pick = pick => {
+    if (props.isRunning === false) {
+      alert("게임 중이 아닙니다!");
     } else {
-      props.pickCard({player: 'p1', pick: pick})
+      props.pickCard({ player: "p1", pick: pick });
     }
-  }
+  };
 
   return (
     <StyledPlayer>
       <h2>{props.player}</h2>
       <div className={`choice + ${props.player}`}>
-        <span>{pickFormatter(props.pick)}</span>
+        <span
+          style={{display: (props.isRunning && props.player === "p2" ? 'none' : 'block')}}
+        >
+          {pickFormatter(props.pick)}
+        </span>
       </div>
       {props.player === "p1" ? (
         <div className="player-buttons">
-          <button value={'scissors'} onClick={e => handleP1Pick(e.target.value)}>가위</button>
-          <button value={'rock'} onClick={e => handleP1Pick(e.target.value)}>바위</button>
-          <button value={'paper'} onClick={e => handleP1Pick(e.target.value)}>보</button>
+          <button
+            disabled={!props.isRunning}
+            value={"scissors"}
+            onClick={e => handleP1Pick(e.target.value)}
+          >
+            가위
+          </button>
+          <button
+            disabled={!props.isRunning}
+            value={"rock"}
+            onClick={e => handleP1Pick(e.target.value)}
+          >
+            바위
+          </button>
+          <button
+            disabled={!props.isRunning}
+            value={"paper"}
+            onClick={e => handleP1Pick(e.target.value)}
+          >
+            보
+          </button>
         </div>
       ) : (
         <></>

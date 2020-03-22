@@ -14,19 +14,19 @@ const Timer = props => {
   let interval;
   const timerFunc = () => {
     interval = setInterval(function() {
-      setIntervalID(interval)
+      setIntervalID(interval);
       if (props.isTimerRunning) {
         remainingTime--;
         setDisplayTime(remainingTime);
         if (remainingTime <= 0) {
-          resetTimer(interval)
+          resetTimer(interval);
           alert("시간 초과. p2 승리!");
           props.onTimeOut();
         }
       }
     }, 1000);
   };
-  const resetTimer = (interval) => {
+  const resetTimer = interval => {
     props.setIsTimerRunning(false);
     clearInterval(interval);
     remainingTime = 15;
@@ -40,9 +40,12 @@ const Timer = props => {
   }, [props.isTimerRunning]);
 
   useEffect(() => {
-    resetTimer(intervalID);
-    props.setIsTimerRunning(false);
-  }, [props.pick_p1]);
+    if (props.pick_p1 !== "") {
+      props.setIsTimerRunning(false);
+      resetTimer(intervalID);
+      console.log("ds");
+    }
+  }, [props.pick_p1, displayTime]);
 
   return (
     <StyledTimer>

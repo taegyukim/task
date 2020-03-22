@@ -52,7 +52,9 @@ const Panel = props => {
                 {score.p1}
               </td>
             ))}
-            <td></td>
+            <td style={{ fontSize: "25px", fontWeight: "bold" }}>
+              {props.winner === "p1" ? "승" : ""}
+            </td>
           </tr>
           <tr id="result-p2">
             <td>플레이어 2</td>
@@ -64,7 +66,9 @@ const Panel = props => {
                 {score.p2}
               </td>
             ))}
-            <td></td>
+            <td style={{ fontSize: "25px", fontWeight: "bold" }}>
+              {props.winner === "p2" ? "승" : ""}
+            </td>
           </tr>
         </tbody>
       </table>
