@@ -37,7 +37,7 @@ const Game = props => {
   };
   return (
     <div>
-      <Panel score={props.score} currentSet={props.currentSet} />
+      <Panel scores={props.scores} currentSet={props.currentSet} />
       <button onClick={handleDebug}>디버그</button>
       <StyledGameArea>
         <div className={"game-buttons"}>

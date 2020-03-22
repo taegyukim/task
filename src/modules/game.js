@@ -9,6 +9,9 @@ const INCREASE_SET = "INCREASE_SET";
 const PICK_CARD = "PICK_CARD";
 
 const UPDATE_SCORE = "UPDATE_SCORE";
+const UPDATE_SET_WINNER = "UPDATE_SET_WINNER";
+
+const UPDATE_WINNER = "UPDATE_WINNER";
 
 // action creator
 export const startGame = () => ({ type: GAME_START });
@@ -25,17 +28,18 @@ export const pickCard = input => ({ type: PICK_CARD, input });
 
 export const updateScore = input => ({ type: UPDATE_SCORE, input });
 
+export const updateSetWinner = input => ({ type: UPDATE_SET_WINNER, input });
+
+export const updateWinner = winner => ({ type: UPDATE_WINNER, winner });
+
 // initial state
 const initialState = {
   isRunning: false,
   currentSet: 0,
-  score: [
-    { set: 1, p1: 0, p2: 0 },
-    { set: 2, p1: 0, p2: 0 },
-    { set: 3, p1: 0, p2: 0 }
-  ],
+  scores: [{ set: 1, p1: 0, p2: 0, winner: "" }],
   pick_p1: "",
-  pick_p2: ""
+  pick_p2: "",
+  winner: ""
 };
 
 // reducer
@@ -59,28 +63,21 @@ const gameReducer = (state = initialState, action) => {
       return {
         isRunning: true,
         currentSet: 1,
-        score: [
-          { set: 1, p1: 0, p2: 0 },
-          { set: 2, p1: 0, p2: 0 },
-          { set: 3, p1: 0, p2: 0 }
-        ]
+        scores: [{ set: 1, p1: 0, p2: 0 }]
       };
     }
     case GAME_QUIT: {
       return {
         isRunning: false,
         currentSet: 0,
-        score: [
-          { set: 1, p1: 0, p2: 0 },
-          { set: 2, p1: 0, p2: 0 },
-          { set: 3, p1: 0, p2: 0 }
-        ]
+        scores: [{ set: 1, p1: 0, p2: 0 }]
       };
     }
     case INCREASE_SET: {
       return {
         ...state,
-        currentSet: state.currentSet + 1
+        currentSet: state.currentSet + 1,
+        scores: state.scores.concat({ set: state.currentSet + 1, p1: 0, p2: 0 })
       };
     }
     case PICK_CARD: {
@@ -100,11 +97,25 @@ const gameReducer = (state = initialState, action) => {
     case UPDATE_SCORE: {
       return {
         ...state,
-        score: state.score.map(setScore =>
-          setScore.set === action.input.set
-            ? setScore[action.input.player]++
-            : setScore
+        scores: state.scores.map(score =>
+          score.set === action.input.set ? score[action.input.player]++ : score
         )
+      };
+    }
+    case UPDATE_SET_WINNER: {
+      return {
+        ...state,
+        scores: state.scores.map(score =>
+          score.set === action.input.set
+            ? (score.winner = action.input.winner)
+            : score
+        )
+      };
+    }
+    case UPDATE_WINNER: {
+      return {
+        ...state,
+        winner: action.winner
       };
     }
     default: {

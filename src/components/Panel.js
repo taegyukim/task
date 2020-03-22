@@ -7,12 +7,19 @@ const StyledPanel = styled.div`
     text-align: center;
 
     td {
-      width: 150px;
+      width: 120px;
       height: 80px;
       border: 1px solid #000000;
 
       &.running {
         color: blue;
+      }
+
+      &.winner {
+        background-color: blue;
+      }
+      &.loser {
+        background-color: grey;
       }
     }
   }
@@ -25,25 +32,38 @@ const Panel = props => {
         <thead>
           <tr id="sets">
             <td></td>
-            <td className={props.currentSet === 1 ? "running" : ""}>1 세트</td>
-            <td className={props.currentSet === 2 ? "running" : ""}>2 세트</td>
-            <td className={props.currentSet === 3 ? "running" : ""}>3 세트</td>
+            {props.scores.map((score, index) => (
+              <td
+                key={`set ${index + 1}`}
+                className={props.currentSet === 1 ? "running" : ""}
+              >{`${index + 1} 세트`}</td>
+            ))}
             <td>최종</td>
           </tr>
         </thead>
         <tbody>
           <tr id="result-p1">
             <td>플레이어 1</td>
-            <td>{props.score[0].p1}</td>
-            <td>{props.score[1].p1}</td>
-            <td>{props.score[2].p1}</td>
+            {props.scores.map((score, index) => (
+              <td
+                key={`p1 score ${index + 1}`}
+                className={score.winner === "p1" ? "winner" : ""}
+              >
+                {score.p1}
+              </td>
+            ))}
             <td></td>
           </tr>
           <tr id="result-p2">
             <td>플레이어 2</td>
-            <td>{props.score[0].p2}</td>
-            <td>{props.score[1].p2}</td>
-            <td>{props.score[2].p2}</td>
+            {props.scores.map((score, index) => (
+              <td
+                key={`p2 score ${index + 1}`}
+                className={score.winner === "p2" ? "winner" : ""}
+              >
+                {score.p2}
+              </td>
+            ))}
             <td></td>
           </tr>
         </tbody>

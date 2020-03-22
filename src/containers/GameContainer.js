@@ -8,30 +8,36 @@ import {
   quitGame,
   increaseSet,
   pickCard,
-  updateScore
+  updateScore,
+  updateSetWinner,
+  updateWinner
 } from "../modules/game";
 
 const GameContainer = ({
   isRunning,
   currentSet,
-  score,
+  scores,
   pick_p1,
   pick_p2,
+  winner,
   startGame,
   stopGame,
   restartGame,
   quitGame,
   increaseSet,
   pickCard,
-  updateScore
+  updateScore,
+  updateSetWinner,
+  updateWinner
 }) => {
   return (
     <Game
       isRunning={isRunning}
       currentSet={currentSet}
-      score={score}
+      scores={scores}
       pick_p1={pick_p1}
       pick_p2={pick_p2}
+      winner={winner}
       startGame={startGame}
       stopGame={stopGame}
       restartGame={restartGame}
@@ -39,6 +45,8 @@ const GameContainer = ({
       increaseSet={increaseSet}
       pickCard={pickCard}
       updateScore={updateScore}
+      updateSetWinner={updateSetWinner}
+      updateWinner={updateWinner}
     />
   );
 };
@@ -48,9 +56,10 @@ const mapStateToProps = state => {
   return {
     isRunning: gameState.isRunning,
     currentSet: gameState.currentSet,
-    score: gameState.score,
+    scores: gameState.scores,
     pick_p1: gameState.pick_p1,
-    pick_p2: gameState.pick_p2
+    pick_p2: gameState.pick_p2,
+    winner: gameState.winner
   };
 };
 
@@ -75,6 +84,12 @@ const mapDispatchToProps = dispatch => ({
   },
   updateScore: ({ set, player }) => {
     dispatch(updateScore({ set, player }));
+  },
+  updateSetWinner: ({set, winner}) => {
+    dispatch(updateSetWinner({set, winner}));
+  },
+  updateWinner: (winner) => {
+    dispatch(updateWinner(winner))
   }
 });
 
