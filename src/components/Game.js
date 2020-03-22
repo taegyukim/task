@@ -33,13 +33,14 @@ const StyledGameArea = styled.section`
 
 const Game = props => {
   const handleDebug = () => {
-    setTimerState({...timerState, isRunning: true})
+    setIsTimerRunning(true);
   };
 
-  const [timerState, setTimerState] = useState({
-    isRunning: false,
-    remainingTime: 15
-  });
+  const handleDebug2 = () => {
+      setIsTimerRunning(false);
+  }
+
+  const [isTimerRunning, setIsTimerRunning] = useState(false);
 
   useEffect(() => {
     if (
@@ -103,6 +104,7 @@ const Game = props => {
     <div>
       <Panel scores={props.scores} currentSet={props.currentSet} />
       <button onClick={handleDebug}>디버그</button>
+      <button onClick={handleDebug2}>디버그2</button>
       <StyledGameArea>
         <div className={"game-buttons"}>
           <button onClick={onGameStart}>게임 시작</button>
@@ -115,7 +117,12 @@ const Game = props => {
           pick={props.pick_p1}
           pickCard={props.pickCard}
         />
-        <Timer timerState={timerState} setTimerState={setTimerState} />
+        <Timer
+          isTimerRunning={isTimerRunning}
+          setIsTimerRunning={setIsTimerRunning}
+          pick_p1={props.pick_p1}
+          updateScore={props.updateScore}
+        />
         <Player
           player={"p2"}
           isRunning={props.isRunning}
