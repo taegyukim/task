@@ -1,4 +1,5 @@
 import React from "react";
+import Panel from './components/Panel'
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
         - 한 플레이어가 3세트를 먼저 승리할 시 해당 플레이어가 최종 승자가 되며
         게임이 종료됩니다.
       </p>
+      <Panel />
     </div>
   );
 }
