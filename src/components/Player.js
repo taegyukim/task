@@ -7,6 +7,10 @@ const StyledPlayer = styled.div`
   flex-direction: column;
   align-items: center;
 
+  h2 {
+    text-transform: uppercase;
+  }
+
   .choice {
     width: 150px;
     height: 150px;

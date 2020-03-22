@@ -33,9 +33,9 @@ const StyledGameArea = styled.section`
 
 const Game = props => {
   const [isTimerRunning, setIsTimerRunning] = useState(false);
-
   const [setWins, setSetWins] = useState({ p1: 0, p2: 0 });
 
+  // 라운드 승패 판별
   useEffect(() => {
     if (
       props.isRunning === true &&
@@ -47,7 +47,6 @@ const Game = props => {
         alert("무승부입니다!");
         props.stopGame();
       } else {
-        // alert(`${result} 승리!`);
         props.updateScore({ set: props.currentSet, player: result });
         props.stopGame();
       }
