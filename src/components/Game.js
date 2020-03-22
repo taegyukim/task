@@ -67,11 +67,11 @@ const Game = props => {
     if (props.currentSet >= 1) {
       if (props.scores[props.currentSet - 1].p1 === 3) {
         props.updateSetWinner({ set: props.currentSet, winner: "p1" });
-        setSetWins({...setWins, p1: setWins.p1 + 1});
+        setSetWins({ ...setWins, p1: setWins.p1 + 1 });
         props.increaseSet();
       } else if (props.scores[props.currentSet - 1].p2 === 3) {
         props.updateSetWinner({ set: props.currentSet, winner: "p2" });
-        setSetWins({...setWins, p2: setWins.p2 + 1});
+        setSetWins({ ...setWins, p2: setWins.p2 + 1 });
         props.increaseSet();
       }
     }
@@ -79,12 +79,12 @@ const Game = props => {
 
   // 어느 한쪽이 3세트를 먼저 승리하면 전체 게임 승리
   useEffect(() => {
-      if(setWins.p1 === 3) {
-          props.updateWinner({winner: 'p1'});
-          alert('p1 최종 승리!');
-      }else if(setWins.p2 === 3) {
-        props.updateWinner({winner: 'p2'});
-        alert('p2 최종 승리!');
+    if (setWins.p1 === 3) {
+      props.updateWinner({ winner: "p1" });
+      alert("p1 최종 승리!");
+    } else if (setWins.p2 === 3) {
+      props.updateWinner({ winner: "p2" });
+      alert("p2 최종 승리!");
     }
   }, [setWins]);
 
@@ -140,7 +140,13 @@ const Game = props => {
       <h2>{props.isRunning ? "게임 진행 중" : "게임 중단"}</h2>
       <StyledGameArea>
         <div className={"game-buttons"}>
-          <button onClick={onGameStart}>게임 시작</button>
+          <button
+            disabled={props.scores.winner}
+            style={{ opacity: props.scores.winner ? 0.3 : 1 }}
+            onClick={onGameStart}
+          >
+            게임 시작
+          </button>
           <button onClick={props.restartGame}>재시작</button>
           <button onClick={props.quitGame}>그만하기</button>
         </div>
