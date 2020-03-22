@@ -1,5 +1,7 @@
 import React from "react";
+import styled from 'styled-components';
 import Panel from './components/Panel'
+import Game from './components/Game'
 
 function App() {
   return (
@@ -23,6 +25,7 @@ function App() {
         게임이 종료됩니다.
       </p>
       <Panel />
+      <Game />
     </div>
   );
 }
