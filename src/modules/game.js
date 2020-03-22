@@ -97,9 +97,24 @@ const gameReducer = (state = initialState, action) => {
     case UPDATE_SCORE: {
       return {
         ...state,
-        scores: state.scores.map(score =>
-          score.set === action.input.set ? score[action.input.player]++ : score
-        )
+        scores: state.scores.map(score => {
+          //   score.set === action.input.set ? score[action.input.player]++ : score
+          if (score.set === action.input.set) {
+            if (action.input.player === "p1") {
+              return {
+                ...score,
+                p1: score.p1 + 1
+              };
+            } else if (action.input.player === "p2") {
+              return {
+                ...score,
+                p2: score.p2 + 1
+              };
+            }
+          } else {
+            return score;
+          }
+        })
       };
     }
     case UPDATE_SET_WINNER: {

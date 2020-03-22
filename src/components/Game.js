@@ -33,7 +33,7 @@ const StyledGameArea = styled.section`
 
 const Game = props => {
   const handleDebug = () => {
-    console.log(props.isRunning);
+    props.updateScore({set: 1, player: 'p1'})
   };
   return (
     <div>
