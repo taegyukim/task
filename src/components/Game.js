@@ -2,6 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import Player from "./Player";
 import Timer from "./Timer";
+import Panel from './Panel'
 
 const StyledGameArea = styled.section`
   margin-top: 50px;
@@ -33,6 +34,7 @@ const StyledGameArea = styled.section`
 const Game = () => {
   return (
     <div>
+        <Panel />
       <StyledGameArea>
         <div className={"game-buttons"}>
           <button>게임 시작</button>
