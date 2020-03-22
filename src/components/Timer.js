@@ -20,7 +20,8 @@ const Timer = props => {
         setDisplayTime(remainingTime);
         if (remainingTime <= 0) {
           resetTimer(interval)
-          alert("시간 초과!");
+          alert("시간 초과. p2 승리!");
+          props.onTimeOut();
         }
       }
     }, 1000);

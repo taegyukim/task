@@ -37,10 +37,12 @@ const Game = props => {
   };
 
   const handleDebug2 = () => {
-      setIsTimerRunning(false);
-  }
+    setIsTimerRunning(false);
+  };
 
   const [isTimerRunning, setIsTimerRunning] = useState(false);
+  const onTimeOut = () =>
+    props.updateScore({ set: props.currentSet, player: "p2" });
 
   useEffect(() => {
     if (
@@ -97,6 +99,7 @@ const Game = props => {
     } else {
       resetPicks();
       props.startGame();
+      setIsTimerRunning(true);
     }
   };
 
@@ -105,6 +108,7 @@ const Game = props => {
       <Panel scores={props.scores} currentSet={props.currentSet} />
       <button onClick={handleDebug}>디버그</button>
       <button onClick={handleDebug2}>디버그2</button>
+      <h2>{props.isRunning ? "게임 진행 중" : "게임 중단"}</h2>
       <StyledGameArea>
         <div className={"game-buttons"}>
           <button onClick={onGameStart}>게임 시작</button>
@@ -121,7 +125,7 @@ const Game = props => {
           isTimerRunning={isTimerRunning}
           setIsTimerRunning={setIsTimerRunning}
           pick_p1={props.pick_p1}
-          updateScore={props.updateScore}
+          onTimeOut={onTimeOut}
         />
         <Player
           player={"p2"}
