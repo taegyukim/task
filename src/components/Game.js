@@ -45,9 +45,19 @@ const Game = props => {
           <button onClick={props.restartGame}>재시작</button>
           <button onClick={props.quitGame}>그만하기</button>
         </div>
-        <Player player={"p1"} isRunning={props.isRunning} pickCard={props.pickCard} />
+        <Player
+          player={"p1"}
+          isRunning={props.isRunning}
+          pick={props.pick_p1}
+          pickCard={props.pickCard}
+        />
         <Timer />
-        <Player player={"p2"} isRunning={props.isRunning} pickCard={props.pickCard} />
+        <Player
+          player={"p2"}
+          isRunning={props.isRunning}
+          pick={props.pick_p2}
+          pickCard={props.pickCard}
+        />
       </StyledGameArea>
     </div>
   );

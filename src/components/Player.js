@@ -51,21 +51,38 @@ const pickRandom = () => {
   }
 };
 
+const pickFormatter = (pick) => {
+  switch(pick){
+    case 'scissors': {
+      return '가위'
+    }
+    case 'rock': {
+      return '바위'
+    }
+    case 'paper': {
+      return '보'
+    }
+    default: {
+      return ''
+    }
+  }
+}
+
 const Player = props => {
   useEffect(() => {
-    if(props.isRunning && props.player === 'p2') {
+    if (props.isRunning && props.player === "p2") {
       const card = pickRandom();
-      props.pickCard({player: 'p2', pick: card})
+      props.pickCard({ player: "p2", pick: card });
     }
-  }, [props.isRunning])
-  
+  }, [props.isRunning]);
+
   return (
     <StyledPlayer>
       <h2>{props.player}</h2>
       <div className={`choice + ${props.player}`}>
-        <span>가위</span>
+        <span>{pickFormatter(props.pick)}</span>
       </div>
-      {props.player === "P1" ? (
+      {props.player === "p1" ? (
         <div className="player-buttons">
           <button>가위</button>
           <button>바위</button>
