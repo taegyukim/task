@@ -26,6 +26,8 @@ const Timer = props => {
       }
     }, 1000);
   };
+
+  // 타이머 정지 및 리셋 함수
   const resetTimer = interval => {
     props.setIsTimerRunning(false);
     clearInterval(interval);
@@ -33,19 +35,20 @@ const Timer = props => {
     setDisplayTime(remainingTime);
   };
 
+  // 타이머 시작
   useEffect(() => {
     if (props.isTimerRunning) {
       timerFunc();
     }
   }, [props.isTimerRunning]);
 
+  // 양쪽 다 패를 선택한 경우 타이머 정지 및 리셋
   useEffect(() => {
-    if (props.pick_p1 !== "") {
+    if (props.pick_p1 !== "" && props.pick_p2 !== '') {
       props.setIsTimerRunning(false);
       resetTimer(intervalID);
-      console.log("ds");
     }
-  }, [props.pick_p1, displayTime]);
+  }, [props.pick_p1, props.pick_p2, displayTime]);
 
   return (
     <StyledTimer>

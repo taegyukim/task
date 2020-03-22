@@ -156,6 +156,7 @@ const Game = props => {
           isTimerRunning={isTimerRunning}
           setIsTimerRunning={setIsTimerRunning}
           pick_p1={props.pick_p1}
+          pick_p2={props.pick_p2}
           onTimeOut={onTimeOut}
         />
         <Player

@@ -70,9 +70,12 @@ const pickFormatter = pick => {
 
 const Player = props => {
   useEffect(() => {
+    const timeToWait = Math.floor(Math.random() * 1000) % 15;
     if (props.isRunning && props.player === "p2") {
-      const card = pickRandom();
-      props.pickCard({ player: "p2", pick: card });
+      setTimeout(() => {
+        const card = pickRandom();
+        props.pickCard({ player: "p2", pick: card });
+      }, timeToWait * 1000);
     }
   }, [props.isRunning]);
 
@@ -88,10 +91,12 @@ const Player = props => {
     <StyledPlayer>
       <h2>{props.player}</h2>
       <div className={`choice + ${props.player}`}>
-        <span
-          style={{display: (props.isRunning && props.player === "p2" ? 'none' : 'block')}}
-        >
-          {pickFormatter(props.pick)}
+        <span>
+          {props.player === "p2"
+            ? props.isRunning && props.pick
+              ? "?"
+              : pickFormatter(props.pick)
+            : pickFormatter(props.pick)}
         </span>
       </div>
       {props.player === "p1" ? (
