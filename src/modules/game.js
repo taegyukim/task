@@ -19,7 +19,7 @@ export const restartGame = () => ({ type: GAME_RESTART });
 
 export const quitGame = () => ({ type: GAME_QUIT });
 
-export const increaseSet = input => ({ type: INCREASE_SET, input });
+export const increaseSet = () => ({ type: INCREASE_SET });
 
 export const pickCard = input => ({ type: PICK_CARD, input });
 
@@ -82,9 +82,18 @@ const gameReducer = (state = initialState, action) => {
       };
     }
     case PICK_CARD: {
-      return {
-        ...state
-      };
+      if (action.input.player === "p1") {
+        return {
+          ...state,
+          pick_p1: action.input.pick
+        };
+      } else if (action.input.player === "p2") {
+        return {
+          ...state,
+          pick_p2: action.input.pick
+        };
+      }
+      break;
     }
     case UPDATE_SCORE: {
       return {
