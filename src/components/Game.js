@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import Player from "./Player";
 import Timer from "./Timer";
@@ -33,8 +33,13 @@ const StyledGameArea = styled.section`
 
 const Game = props => {
   const handleDebug = () => {
-    console.log(Math.floor(Math.random() * 1000) % 3);
+    setTimerState({...timerState, isRunning: true})
   };
+
+  const [timerState, setTimerState] = useState({
+    isRunning: false,
+    remainingTime: 15
+  });
 
   useEffect(() => {
     if (
@@ -110,7 +115,7 @@ const Game = props => {
           pick={props.pick_p1}
           pickCard={props.pickCard}
         />
-        <Timer />
+        <Timer timerState={timerState} setTimerState={setTimerState} />
         <Player
           player={"p2"}
           isRunning={props.isRunning}
