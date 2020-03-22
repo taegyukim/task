@@ -76,6 +76,14 @@ const Player = props => {
     }
   }, [props.isRunning]);
 
+  const handleP1Pick = (pick) => {
+    if(props.isRunning === false) {
+      alert('게임 중이 아닙니다!');
+    } else {
+      props.pickCard({player: 'p1', pick: pick})
+    }
+  }
+
   return (
     <StyledPlayer>
       <h2>{props.player}</h2>
@@ -84,9 +92,9 @@ const Player = props => {
       </div>
       {props.player === "p1" ? (
         <div className="player-buttons">
-          <button>가위</button>
-          <button>바위</button>
-          <button>보</button>
+          <button value={'scissors'} onClick={e => handleP1Pick(e.target.value)}>가위</button>
+          <button value={'rock'} onClick={e => handleP1Pick(e.target.value)}>바위</button>
+          <button value={'paper'} onClick={e => handleP1Pick(e.target.value)}>보</button>
         </div>
       ) : (
         <></>
