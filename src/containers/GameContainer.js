@@ -44,7 +44,7 @@ const GameContainer = ({
 };
 
 const mapStateToProps = state => {
-  const gameState = state.game;
+  const gameState = state.gameReducer;
   return {
     isRunning: gameState.isRunning,
     currentSet: gameState.currentSet,

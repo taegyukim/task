@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import Player from "./Player";
 import Timer from "./Timer";
-import Panel from './Panel'
+import Panel from "./Panel";
 
 const StyledGameArea = styled.section`
   margin-top: 50px;
@@ -31,15 +31,19 @@ const StyledGameArea = styled.section`
   }
 `;
 
-const Game = () => {
+const Game = (props) => {
+    const handleDebug = () => {
+        console.log(props.isRunning)
+    }
   return (
     <div>
-        <Panel />
+      <Panel />
+      <button onClick={handleDebug}>디버그</button>
       <StyledGameArea>
         <div className={"game-buttons"}>
-          <button>게임 시작</button>
-          <button>재시작</button>
-          <button>그만하기</button>
+          <button onClick={props.startGame}>게임 시작</button>
+          <button onClick={props.restartGame}>재시작</button>
+          <button onClick={props.quitGame}>그만하기</button>
         </div>
         <Player player={"P1"} />
         <Timer />
