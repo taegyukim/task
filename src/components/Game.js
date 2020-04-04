@@ -75,8 +75,8 @@ const Game = props => {
           >
             게임 시작
           </button>
-          <button onClick={props.restartGame}>재시작</button>
-          <button onClick={props.quitGame}>그만하기</button>
+          <button onClick={props.onRestartGame}>재시작</button>
+          <button onClick={props.onQuitGame}>그만하기</button>
         </div>
         <Player
           player={P1}

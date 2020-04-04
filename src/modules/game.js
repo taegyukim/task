@@ -1,12 +1,4 @@
-import { getRoundWinner } from "../utils";
-
-const P1 = "p1";
-const P2 = "p2";
-const DRAW = "draw";
-const SCISSORS = "scissors";
-const ROCK = "rock";
-const PAPER = "paper";
-const EMPTY = "";
+import { P1, P2, DRAW, getRoundWinner } from "../utils";
 
 // action type
 const GAME_START = "GAME_START";
@@ -78,20 +70,6 @@ const initialState = {
 };
 
 // business logics
-export const runTimer = () => dispatch => {
-  dispatch(startTimer());
-  const intervalID = setInterval(() => {
-    dispatch(reduceTime());
-  }, 1000);
-  dispatch(setIntervalID({ intervalID }));
-};
-
-export const killTimer = () => (dispatch, getState) => {
-  clearInterval(getState().gameReducer.timer.intervalID);
-  dispatch(stopTimer());
-  dispatch(resetTimer());
-};
-
 export const startRound = () => (dispatch, getState) => {
   if (getState().gameReducer.isRunning) {
     alert("이미 게임이 진행중입니다!");
@@ -116,6 +94,25 @@ export const endRound = () => (dispatch, getState) => {
   dispatch(resetTimer());
 };
 
+export const onQuitGame = () => dispatch => {
+  dispatch(endRound());
+  dispatch(quitGame());
+};
+
+export const onRestartGame = () => dispatch => {
+  dispatch(endRound());
+  dispatch(restartGame());
+  dispatch(resetPick());
+    dispatch(startGame());
+
+    // 타이머 시작
+    dispatch(startTimer());
+    const intervalID = setInterval(() => {
+      dispatch(reduceTime());
+    }, 1000);
+    dispatch(setIntervalID({ intervalID }));
+};
+
 export const setRoundWinner = () => (dispatch, getState) => {
   const state = getState().gameReducer;
   const result = getRoundWinner(state.p1Pick, state.p2Pick);
@@ -132,10 +129,10 @@ export const setSetWinner = () => (dispatch, getState) => {
   const state = getState().gameReducer;
   if (state.currentSet >= 1) {
     if (state.scores[state.currentSet - 1].p1 === 3) {
-      dispatch(updateSetWinner({ set: state.currentSet, winner: "p1" }));
+      dispatch(updateSetWinner({ set: state.currentSet, winner: P1 }));
       dispatch(increaseSet());
     } else if (state.scores[state.currentSet - 1].p2 === 3) {
-      dispatch(updateSetWinner({ set: state.currentSet, winner: "p2" }));
+      dispatch(updateSetWinner({ set: state.currentSet, winner: P2 }));
       dispatch(increaseSet());
     }
   }
@@ -143,17 +140,16 @@ export const setSetWinner = () => (dispatch, getState) => {
 
 export const setFinalWinner = () => (dispatch, getState) => {
   const state = getState().gameReducer;
-  if(state.setScores.p1 === 3) {
+  if (state.setScores.p1 === 3) {
     dispatch(updateWinner(P1));
-    alert('p1 최종 승리!')
-  } else if(state.setScores.p2 === 3) {
+    alert("p1 최종 승리!");
+  } else if (state.setScores.p2 === 3) {
     dispatch(updateWinner(P2));
-    alert('p2 최종 승리!')
+    alert("p2 최종 승리!");
   }
-}
+};
 
 export const onTimeout = () => (dispatch, getState) => {
-  console.log("123");
   const state = getState().gameReducer;
   // 타이머 중지, 리셋
   clearInterval(state.timer.intervalID);
@@ -186,23 +182,12 @@ const gameReducer = (state = initialState, action) => {
     }
     case GAME_RESTART: {
       return {
+        ...initialState,
         isRunning: true,
-        currentSet: 1,
-        scores: [{ set: 1, p1: 0, p2: 0, winner: "" }],
-        p1Pick: "",
-        p2Pick: "",
-        winner: ""
       };
     }
     case GAME_QUIT: {
-      return {
-        isRunning: false,
-        currentSet: 0,
-        scores: [{ set: 1, p1: 0, p2: 0, winner: "" }],
-        p1Pick: "",
-        p2Pick: "",
-        winner: ""
-      };
+      return initialState;
     }
     case INCREASE_SET: {
       return {
@@ -212,12 +197,12 @@ const gameReducer = (state = initialState, action) => {
       };
     }
     case PICK_CARD: {
-      if (action.input.player === "p1") {
+      if (action.input.player === P1) {
         return {
           ...state,
           p1Pick: action.input.pick
         };
-      } else if (action.input.player === "p2") {
+      } else if (action.input.player === P2) {
         return {
           ...state,
           p2Pick: action.input.pick
@@ -237,12 +222,12 @@ const gameReducer = (state = initialState, action) => {
         ...state,
         scores: state.scores.map(score => {
           if (score.set === action.input.set) {
-            if (action.input.winner === "p1") {
+            if (action.input.winner === P1) {
               return {
                 ...score,
                 p1: score.p1 + 1
               };
-            } else if (action.input.winner === "p2") {
+            } else if (action.input.winner === P2) {
               return {
                 ...score,
                 p2: score.p2 + 1

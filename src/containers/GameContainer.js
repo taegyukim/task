@@ -6,18 +6,14 @@ import {
   stopGame,
   restartGame,
   quitGame,
-  increaseSet,
   pickCard,
-  updateScore,
-  updateSetWinner,
-  updateWinner,
-  runTimer,
-  killTimer,
   startRound,
   onTimeout,
   setRoundWinner,
   setSetWinner,
-  setFinalWinner
+  setFinalWinner,
+  onQuitGame,
+  onRestartGame
 } from "../modules/game";
 
 const GameContainer = ({
@@ -31,20 +27,16 @@ const GameContainer = ({
   stopGame,
   restartGame,
   quitGame,
-  increaseSet,
   pickCard,
-  updateScore,
-  updateSetWinner,
-  updateWinner,
-  runTimer,
-  killTimer,
   timer,
   startRound,
   onTimeout,
   setRoundWinner,
   setSetWinner,
   setScores,
-  setFinalWinner
+  setFinalWinner,
+  onQuitGame,
+  onRestartGame
 }) => {
   return (
     <Game
@@ -58,13 +50,7 @@ const GameContainer = ({
       stopGame={stopGame}
       restartGame={restartGame}
       quitGame={quitGame}
-      increaseSet={increaseSet}
       pickCard={pickCard}
-      updateScore={updateScore}
-      updateSetWinner={updateSetWinner}
-      updateWinner={updateWinner}
-      runTimer={runTimer}
-      killTimer={killTimer}
       timer={timer}
       startRound={startRound}
       onTimeout={onTimeout}
@@ -72,6 +58,8 @@ const GameContainer = ({
       setSetWinner={setSetWinner}
       setScores={setScores}
       setFinalWinner={setFinalWinner}
+      onQuitGame={onQuitGame}
+      onRestartGame={onRestartGame}
     />
   );
 };
@@ -86,7 +74,7 @@ const mapStateToProps = state => {
     p2Pick: gameState.p2Pick,
     winner: gameState.winner,
     timer: gameState.timer,
-    setScores: gameState.setScores,
+    setScores: gameState.setScores
   };
 };
 
@@ -103,26 +91,8 @@ const mapDispatchToProps = dispatch => ({
   quitGame: () => {
     dispatch(quitGame());
   },
-  increaseSet: () => {
-    dispatch(increaseSet());
-  },
   pickCard: ({ player, pick }) => {
     dispatch(pickCard({ player, pick }));
-  },
-  updateScore: ({ set, player }) => {
-    dispatch(updateScore({ set, player }));
-  },
-  updateSetWinner: ({ set, winner }) => {
-    dispatch(updateSetWinner({ set, winner }));
-  },
-  updateWinner: winner => {
-    dispatch(updateWinner(winner));
-  },
-  runTimer: () => {
-    dispatch(runTimer());
-  },
-  killTimer: () => {
-    dispatch(killTimer());
   },
   startRound: () => {
     dispatch(startRound());
@@ -138,6 +108,12 @@ const mapDispatchToProps = dispatch => ({
   },
   setFinalWinner: () => {
     dispatch(setFinalWinner());
+  },
+  onQuitGame: () => {
+    dispatch(onQuitGame());
+  },
+  onRestartGame: () => {
+    dispatch(onRestartGame());
   }
 });
 
