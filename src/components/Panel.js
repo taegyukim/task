@@ -27,17 +27,17 @@ const StyledPanel = styled.div`
   }
 `;
 
-const Panel = props => {
+const Panel = ({ scores, currentSet, winner }) => {
   return (
     <StyledPanel>
       <table>
         <thead>
           <tr id="sets">
             <td></td>
-            {props.scores.map((score, index) => (
+            {scores.map((score, index) => (
               <td
                 key={`set ${index + 1}`}
-                className={props.currentSet === score.set ? "running" : ""}
+                className={currentSet === score.set ? "running" : ""}
               >{`${index + 1} 세트`}</td>
             ))}
             <td>최종</td>
@@ -46,7 +46,7 @@ const Panel = props => {
         <tbody>
           <tr id="result-p1">
             <td>플레이어 1</td>
-            {props.scores.map((score, index) => (
+            {scores.map((score, index) => (
               <td
                 key={`p1 score ${index + 1}`}
                 className={score.winner === "p1" ? "winner" : ""}
@@ -55,12 +55,12 @@ const Panel = props => {
               </td>
             ))}
             <td style={{ fontSize: "25px", fontWeight: "bold" }}>
-              {props.winner === P1 ? "승" : ""}
+              {winner === P1 ? "승" : ""}
             </td>
           </tr>
           <tr id="result-p2">
             <td>플레이어 2</td>
-            {props.scores.map((score, index) => (
+            {scores.map((score, index) => (
               <td
                 key={`p2 score ${index + 1}`}
                 className={score.winner === "p2" ? "winner" : ""}
@@ -69,7 +69,7 @@ const Panel = props => {
               </td>
             ))}
             <td style={{ fontSize: "25px", fontWeight: "bold" }}>
-              {props.winner === P2 ? "승" : ""}
+              {winner === P2 ? "승" : ""}
             </td>
           </tr>
         </tbody>

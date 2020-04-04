@@ -2,10 +2,6 @@ import React from "react";
 import { connect } from "react-redux";
 import Game from "../components/Game";
 import {
-  startGame,
-  stopGame,
-  restartGame,
-  quitGame,
   pickCard,
   startRound,
   onTimeout,
@@ -23,20 +19,16 @@ const GameContainer = ({
   p1Pick,
   p2Pick,
   winner,
-  startGame,
-  stopGame,
-  restartGame,
-  quitGame,
-  pickCard,
   timer,
   startRound,
-  onTimeout,
+  onQuitGame,
+  onRestartGame,
+  pickCard,
   setRoundWinner,
   setSetWinner,
   setScores,
   setFinalWinner,
-  onQuitGame,
-  onRestartGame
+  onTimeout,
 }) => {
   return (
     <Game
@@ -46,20 +38,16 @@ const GameContainer = ({
       p1Pick={p1Pick}
       p2Pick={p2Pick}
       winner={winner}
-      startGame={startGame}
-      stopGame={stopGame}
-      restartGame={restartGame}
-      quitGame={quitGame}
-      pickCard={pickCard}
       timer={timer}
       startRound={startRound}
-      onTimeout={onTimeout}
+      onQuitGame={onQuitGame}
+      onRestartGame={onRestartGame}
+      pickCard={pickCard}
       setRoundWinner={setRoundWinner}
       setSetWinner={setSetWinner}
       setScores={setScores}
       setFinalWinner={setFinalWinner}
-      onQuitGame={onQuitGame}
-      onRestartGame={onRestartGame}
+      onTimeout={onTimeout}
     />
   );
 };
@@ -79,26 +67,17 @@ const mapStateToProps = state => {
 };
 
 const mapDispatchToProps = dispatch => ({
-  startGame: () => {
-    dispatch(startGame());
-  },
-  stopGame: () => {
-    dispatch(stopGame());
-  },
-  restartGame: () => {
-    dispatch(restartGame());
-  },
-  quitGame: () => {
-    dispatch(quitGame());
-  },
-  pickCard: ({ player, pick }) => {
-    dispatch(pickCard({ player, pick }));
-  },
   startRound: () => {
     dispatch(startRound());
   },
-  onTimeout: () => {
-    dispatch(onTimeout());
+  onQuitGame: () => {
+    dispatch(onQuitGame());
+  },
+  onRestartGame: () => {
+    dispatch(onRestartGame());
+  },
+  pickCard: ({ player, pick }) => {
+    dispatch(pickCard({ player, pick }));
   },
   setRoundWinner: () => {
     dispatch(setRoundWinner());
@@ -109,12 +88,9 @@ const mapDispatchToProps = dispatch => ({
   setFinalWinner: () => {
     dispatch(setFinalWinner());
   },
-  onQuitGame: () => {
-    dispatch(onQuitGame());
+  onTimeout: () => {
+    dispatch(onTimeout());
   },
-  onRestartGame: () => {
-    dispatch(onRestartGame());
-  }
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(GameContainer);

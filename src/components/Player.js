@@ -63,55 +63,55 @@ const pickFormatter = pick => {
   }
 };
 
-const Player = props => {
+const Player = ({ player, isRunning, pick, pickCard }) => {
   useEffect(() => {
     const timeToWait = Math.floor(Math.random() * 1000) % 2;
-    if (props.isRunning && props.player === P2) {
+    if (isRunning && player === P2) {
       setTimeout(() => {
         const card = pickRandom();
-        props.pickCard({ player: P2, pick: card });
+        pickCard({ player: P2, pick: card });
       }, timeToWait * 1000);
     }
-  }, [props.isRunning]);
+  }, [isRunning]);
 
   const handleP1Pick = pick => {
-    if (props.isRunning === false) {
+    if (isRunning === false) {
       alert("게임 중이 아닙니다!");
     } else {
-      props.pickCard({ player: P1, pick: pick });
+      pickCard({ player: P1, pick: pick });
     }
   };
 
   return (
     <StyledPlayer>
-      <h2>{props.player}</h2>
-      <div className={`choice + ${props.player}`}>
+      <h2>{player}</h2>
+      <div className={`choice + ${player}`}>
         <span>
-          {props.player === P2
-            ? props.isRunning && props.pick
+          {player === P2
+            ? isRunning && pick
               ? "?"
-              : pickFormatter(props.pick)
-            : pickFormatter(props.pick)}
+              : pickFormatter(pick)
+            : pickFormatter(pick)}
         </span>
       </div>
-      {props.player === P1 ? (
+      {player === P1 ? (
         <div className="player-buttons">
           <button
-            disabled={!props.isRunning}
+            disabled={!isRunning}
             value={SCISSORS}
             onClick={e => handleP1Pick(e.target.value)}
           >
             가위
           </button>
           <button
-            disabled={!props.isRunning}
+            disabled={!isRunning}
             value={ROCK}
             onClick={e => handleP1Pick(e.target.value)}
           >
             바위
           </button>
           <button
-            disabled={!props.isRunning}
+            disabled={!isRunning}
             value={PAPER}
             onClick={e => handleP1Pick(e.target.value)}
           >

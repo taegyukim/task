@@ -7,18 +7,18 @@ const StyledTimer = styled.div`
   text-align: center;
 `;
 
-const Timer = props => {
+const Timer = ({ onTimeout, remainingTime }) => {
   useEffect(() => {
-    if (props.remainingTime <= 0) {
-      props.onTimeout();
+    if (remainingTime <= 0) {
+      onTimeout();
       alert("시간 초과. p2 승리!");
     }
-  }, [props.remainingTime]);
+  }, [remainingTime]);
 
   return (
     <StyledTimer>
       <h3>제한 시간</h3>
-      <h2>{props.remainingTime}</h2>
+      <h2>{remainingTime}</h2>
     </StyledTimer>
   );
 };

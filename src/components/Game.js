@@ -33,66 +33,81 @@ const StyledGameArea = styled.section`
   }
 `;
 
-const Game = props => {
+const Game = ({
+  isRunning,
+  currentSet,
+  scores,
+  p1Pick,
+  p2Pick,
+  winner,
+  timer,
+  startRound,
+  onQuitGame,
+  onRestartGame,
+  pickCard,
+  setRoundWinner,
+  setSetWinner,
+  setScores,
+  setFinalWinner,
+  onTimeout,
+}) => {
   // 라운드 승패 판별
   useEffect(() => {
     if (
-      props.isRunning === true &&
-      props.p1Pick !== EMPTY &&
-      props.p2Pick !== EMPTY
+      isRunning === true &&
+      p1Pick !== EMPTY &&
+      p2Pick !== EMPTY
     ) {
-      props.setRoundWinner();
+      setRoundWinner();
     }
-  }, [props.p1Pick, props.p2Pick]);
+  }, [p1Pick, p2Pick]);
 
   // 어느 한쪽이 3게임을 먼저 승리하면 해당 세트 승리
   useEffect(() => {
-    props.setSetWinner();
-  }, [props.scores]);
+    setSetWinner();
+  }, [scores]);
 
   // 어느 한쪽이 3세트를 먼저 승리하면 전체 게임 승리
   useEffect(() => {
-    props.setFinalWinner();
-  }, [props.setScores]);
+    setFinalWinner();
+  }, [setScores]);
 
   return (
     <div>
       <Panel
-        scores={props.scores}
-        currentSet={props.currentSet}
-        winner={props.winner}
+        scores={scores}
+        currentSet={currentSet}
+        winner={winner}
       />
-      <button onClick={props.runTimer}>시작</button>
-      <button onClick={props.killTimer}>리셋</button>
-      <p>{`${props.setScores.p1}, ${props.setScores.p2}`}</p>
-      <h2>{props.isRunning ? "게임 진행 중" : "게임 중단"}</h2>
+      <p>{`${setScores.p1}, ${setScores.p2}`}</p>
+      <h2>{isRunning ? "게임 진행 중" : "게임 중단"}</h2>
       <StyledGameArea>
         <div className={"game-buttons"}>
           <button
-            disabled={props.winner}
-            style={{ opacity: props.winner ? 0.3 : 1 }}
-            onClick={props.startRound}
+            disabled={winner}
+            style={{ opacity: winner ? 0.3 : 1 }}
+            onClick={startRound}
           >
             게임 시작
           </button>
-          <button onClick={props.onRestartGame}>재시작</button>
-          <button onClick={props.onQuitGame}>그만하기</button>
+          <button onClick={onRestartGame}>재시작</button>
+          <button onClick={onQuitGame}>그만하기</button>
         </div>
         <Player
           player={P1}
-          isRunning={props.isRunning}
-          pick={props.p1Pick}
-          pickCard={props.pickCard}
+          isRunning={isRunning}
+          pick={p1Pick}
+          pickCard={pickCard}
         />
         <Timer
-          onTimeout={props.onTimeout}
-          remainingTime={props.timer.remainingTime}
+          onTimeout={onTimeout}
+          remainingTime={timer.remainingTime}
         />
         <Player
           player={P2}
-          isRunning={props.isRunning}
-          pick={props.p2Pick}
-          pickCard={props.pickCard}
+          isRunning={isRunning}
+          pick={p2Pick}
+          pickCard={pickCard}
         />
       </StyledGameArea>
     </div>
