@@ -66,20 +66,16 @@ const initialState = {
 
 // business logics
 export const startRound = () => (dispatch, getState) => {
-  if (getState().gameReducer.isRunning) {
-    alert("이미 게임이 진행중입니다!");
-  } else {
-    // 패 초기화, 게임 시작
-    dispatch(resetPick());
-    dispatch(startGame());
+  // 패 초기화, 게임 시작
+  dispatch(resetPick());
+  dispatch(startGame());
 
-    // 타이머 시작
-    dispatch(startTimer());
-    const intervalID = setInterval(() => {
-      dispatch(reduceTime());
-    }, 1000);
-    dispatch(setIntervalID({ intervalID }));
-  }
+  // 타이머 시작
+  dispatch(startTimer());
+  const intervalID = setInterval(() => {
+    dispatch(reduceTime());
+  }, 1000);
+  dispatch(setIntervalID({ intervalID }));
 };
 
 export const endRound = () => (dispatch, getState) => {

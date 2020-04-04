@@ -77,7 +77,7 @@ const Game = ({
       <StyledGameArea>
         <div className={"game-buttons"}>
           <button
-            disabled={winner}
+            disabled={winner || isRunning}
             style={{ opacity: winner ? 0.3 : 1 }}
             onClick={startRound}
           >
