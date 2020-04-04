@@ -39,10 +39,10 @@ const Game = props => {
   useEffect(() => {
     if (
       props.isRunning === true &&
-      props.pick_p1 !== "" &&
-      props.pick_p2 !== ""
+      props.p1Pick !== "" &&
+      props.p2Pick !== ""
     ) {
-      const result = getRoundWinner(props.pick_p1, props.pick_p2);
+      const result = getRoundWinner(props.p1Pick, props.p2Pick);
       if (result === "draw") {
         alert("무승부입니다!");
         props.stopGame();
@@ -51,7 +51,7 @@ const Game = props => {
         props.stopGame();
       }
     }
-  }, [props.pick_p1, props.pick_p2]);
+  }, [props.p1Pick, props.p2Pick]);
 
   // 어느 한쪽이 3게임을 먼저 승리하면 해당 세트 승리
   useEffect(() => {
@@ -79,26 +79,26 @@ const Game = props => {
     }
   }, [setWins]);
 
-  const getRoundWinner = (pick_p1, pick_p2) => {
-    if (pick_p1 === pick_p2) {
+  const getRoundWinner = (p1Pick, p2Pick) => {
+    if (p1Pick === p2Pick) {
       return "draw";
     } else {
-      if (pick_p1 === "scissors") {
-        if (pick_p2 === "rock") {
+      if (p1Pick === "scissors") {
+        if (p2Pick === "rock") {
           return "p2";
-        } else if (pick_p2 === "paper") {
+        } else if (p2Pick === "paper") {
           return "p1";
         }
-      } else if (pick_p1 === "rock") {
-        if (pick_p2 === "scissors") {
+      } else if (p1Pick === "rock") {
+        if (p2Pick === "scissors") {
           return "p1";
-        } else if (pick_p2 === "paper") {
+        } else if (p2Pick === "paper") {
           return "p2";
         }
-      } else if (pick_p1 === "paper") {
-        if (pick_p2 === "scissors") {
+      } else if (p1Pick === "paper") {
+        if (p2Pick === "scissors") {
           return "p2";
-        } else if (pick_p2 === "rock") {
+        } else if (p2Pick === "rock") {
           return "p1";
         }
       }
@@ -148,20 +148,20 @@ const Game = props => {
         <Player
           player={"p1"}
           isRunning={props.isRunning}
-          pick={props.pick_p1}
+          pick={props.p1Pick}
           pickCard={props.pickCard}
         />
         <Timer
           isTimerRunning={isTimerRunning}
           setIsTimerRunning={setIsTimerRunning}
-          pick_p1={props.pick_p1}
-          pick_p2={props.pick_p2}
+          p1Pick={props.p1Pick}
+          p2Pick={props.p2Pick}
           onTimeOut={onTimeOut}
         />
         <Player
           player={"p2"}
           isRunning={props.isRunning}
-          pick={props.pick_p2}
+          pick={props.p2Pick}
           pickCard={props.pickCard}
         />
       </StyledGameArea>

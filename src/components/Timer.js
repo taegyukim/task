@@ -44,11 +44,11 @@ const Timer = props => {
 
   // 양쪽 다 패를 선택한 경우 타이머 정지 및 리셋
   useEffect(() => {
-    if (props.pick_p1 !== "" && props.pick_p2 !== '') {
+    if (props.p1Pick !== "" && props.p2Pick !== "") {
       props.setIsTimerRunning(false);
       resetTimer(intervalID);
     }
-  }, [props.pick_p1, props.pick_p2, displayTime]);
+  }, [props.p1Pick, props.p2Pick, displayTime]);
 
   return (
     <StyledTimer>

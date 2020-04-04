@@ -37,8 +37,8 @@ const initialState = {
   isRunning: false,
   currentSet: 0,
   scores: [{ set: 1, p1: 0, p2: 0, winner: "" }],
-  pick_p1: "",
-  pick_p2: "",
+  p1Pick: "",
+  p2Pick: "",
   winner: ""
 };
 
@@ -64,8 +64,8 @@ const gameReducer = (state = initialState, action) => {
         isRunning: true,
         currentSet: 1,
         scores: [{ set: 1, p1: 0, p2: 0, winner: "" }],
-        pick_p1: "",
-        pick_p2: "",
+        p1Pick: "",
+        p2Pick: "",
         winner: ""
       };
     }
@@ -74,8 +74,8 @@ const gameReducer = (state = initialState, action) => {
         isRunning: false,
         currentSet: 0,
         scores: [{ set: 1, p1: 0, p2: 0, winner: "" }],
-        pick_p1: "",
-        pick_p2: "",
+        p1Pick: "",
+        p2Pick: "",
         winner: ""
       };
     }
@@ -90,12 +90,12 @@ const gameReducer = (state = initialState, action) => {
       if (action.input.player === "p1") {
         return {
           ...state,
-          pick_p1: action.input.pick
+          p1Pick: action.input.pick
         };
       } else if (action.input.player === "p2") {
         return {
           ...state,
-          pick_p2: action.input.pick
+          p2Pick: action.input.pick
         };
       }
       break;
