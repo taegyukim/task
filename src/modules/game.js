@@ -149,12 +149,12 @@ const gameReducer = (state = initialState, action) => {
         ...state,
         scores: state.scores.map(score => {
           if (score.set === action.input.set) {
-            if (action.input.player === "p1") {
+            if (action.input.winner === "p1") {
               return {
                 ...score,
                 p1: score.p1 + 1
               };
-            } else if (action.input.player === "p2") {
+            } else if (action.input.winner === "p2") {
               return {
                 ...score,
                 p2: score.p2 + 1

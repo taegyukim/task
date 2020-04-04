@@ -47,7 +47,7 @@ const Game = props => {
         alert("무승부입니다!");
         props.stopGame();
       } else {
-        props.updateScore({ set: props.currentSet, player: result });
+        props.updateScore({ set: props.currentSet, winner: result });
         props.stopGame();
       }
     }
