@@ -132,12 +132,7 @@ const Game = props => {
           pickCard={props.pickCard}
         />
         <Timer
-          isTimerRunning={isTimerRunning}
-          setIsTimerRunning={setIsTimerRunning}
-          p1Pick={props.p1Pick}
-          p2Pick={props.p2Pick}
           onTimeout={props.onTimeout}
-          killTimer={props.killTimer}
           remainingTime={props.timer.remainingTime}
         />
         <Player
