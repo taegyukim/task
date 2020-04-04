@@ -72,37 +72,6 @@ const Game = props => {
     }
   }, [setWins]);
 
-  const getRoundWinner = (p1Pick, p2Pick) => {
-    if (p1Pick === p2Pick) {
-      return "draw";
-    } else {
-      if (p1Pick === "scissors") {
-        if (p2Pick === "rock") {
-          return "p2";
-        } else if (p2Pick === "paper") {
-          return "p1";
-        }
-      } else if (p1Pick === "rock") {
-        if (p2Pick === "scissors") {
-          return "p1";
-        } else if (p2Pick === "paper") {
-          return "p2";
-        }
-      } else if (p1Pick === "paper") {
-        if (p2Pick === "scissors") {
-          return "p2";
-        } else if (p2Pick === "rock") {
-          return "p1";
-        }
-      }
-    }
-  };
-
-  // const onTimeOut = () => {
-  //   props.updateScore({ set: props.currentSet, player: "p2" });
-  //   props.stopGame();
-  // };
-
   return (
     <div>
       <Panel
