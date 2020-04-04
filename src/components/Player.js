@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import styled from "styled-components";
 
-import { P1, P2, SCISSORS, ROCK, PAPER, pickRandom } from "../utils";
+import { P1, P2, SCISSORS, ROCK, PAPER, pickRandom, pickFormatter } from "../utils";
 
 const StyledPlayer = styled.div`
   width: 300px;
@@ -45,23 +45,6 @@ const StyledPlayer = styled.div`
     }
   }
 `;
-
-const pickFormatter = pick => {
-  switch (pick) {
-    case SCISSORS: {
-      return "가위";
-    }
-    case ROCK: {
-      return "바위";
-    }
-    case PAPER: {
-      return "보";
-    }
-    default: {
-      return "";
-    }
-  }
-};
 
 const Player = ({ player, isRunning, pick, pickCard }) => {
   useEffect(() => {

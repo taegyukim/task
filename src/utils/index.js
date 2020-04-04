@@ -42,3 +42,20 @@ export const getRoundWinner = (p1Pick, p2Pick) => {
     }
   }
 };
+
+export const pickFormatter = pick => {
+  switch (pick) {
+    case SCISSORS: {
+      return "가위";
+    }
+    case ROCK: {
+      return "바위";
+    }
+    case PAPER: {
+      return "보";
+    }
+    default: {
+      return "";
+    }
+  }
+};
