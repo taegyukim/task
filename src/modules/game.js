@@ -1,3 +1,11 @@
+const P1 = "p1";
+const P2 = "p2";
+const DRAW = "draw";
+const SCISSORS = "scissors";
+const ROCK = "rock";
+const PAPER = "paper";
+const EMPTY = "";
+
 // action type
 const GAME_START = "GAME_START";
 const GAME_STOP = "GAME_STOP";
