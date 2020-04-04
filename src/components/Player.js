@@ -74,7 +74,7 @@ const pickFormatter = pick => {
 
 const Player = props => {
   useEffect(() => {
-    const timeToWait = Math.floor(Math.random() * 1000) % 15;
+    const timeToWait = Math.floor(Math.random() * 1000) % 2;
     if (props.isRunning && props.player === "p2") {
       setTimeout(() => {
         const card = pickRandom();

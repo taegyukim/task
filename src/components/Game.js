@@ -32,7 +32,6 @@ const StyledGameArea = styled.section`
 `;
 
 const Game = props => {
-  const [isTimerRunning, setIsTimerRunning] = useState(false);
   const [setWins, setSetWins] = useState({ p1: 0, p2: 0 });
 
   // 라운드 승패 판별
@@ -48,17 +47,7 @@ const Game = props => {
 
   // 어느 한쪽이 3게임을 먼저 승리하면 해당 세트 승리
   useEffect(() => {
-    if (props.currentSet >= 1) {
-      if (props.scores[props.currentSet - 1].p1 === 3) {
-        props.updateSetWinner({ set: props.currentSet, winner: "p1" });
-        setSetWins({ ...setWins, p1: setWins.p1 + 1 });
-        props.increaseSet();
-      } else if (props.scores[props.currentSet - 1].p2 === 3) {
-        props.updateSetWinner({ set: props.currentSet, winner: "p2" });
-        setSetWins({ ...setWins, p2: setWins.p2 + 1 });
-        props.increaseSet();
-      }
-    }
+    props.setSetWinner();
   }, [props.scores]);
 
   // 어느 한쪽이 3세트를 먼저 승리하면 전체 게임 승리

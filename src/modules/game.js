@@ -66,6 +66,7 @@ const initialState = {
   isRunning: false,
   currentSet: 0,
   scores: [{ set: 1, p1: 0, p2: 0, winner: "" }],
+  setScores: { p1: 0, p2: 0 },
   p1Pick: "",
   p2Pick: "",
   winner: "",
@@ -119,11 +120,24 @@ export const setRoundWinner = () => (dispatch, getState) => {
   const state = getState().gameReducer;
   const result = getRoundWinner(state.p1Pick, state.p2Pick);
   if (result === DRAW) {
-    dispatch(endRound())
+    dispatch(endRound());
     alert("무승부!");
   } else {
-    dispatch(endRound())
+    dispatch(endRound());
     dispatch(updateScore({ set: state.currentSet, winner: result }));
+  }
+};
+
+export const setSetWinner = () => (dispatch, getState) => {
+  const state = getState().gameReducer;
+  if (state.currentSet >= 1) {
+    if (state.scores[state.currentSet - 1].p1 === 3) {
+      dispatch(updateSetWinner({ set: state.currentSet, winner: "p1" }));
+      dispatch(increaseSet());
+    } else if (state.scores[state.currentSet - 1].p2 === 3) {
+      dispatch(updateSetWinner({ set: state.currentSet, winner: "p2" }));
+      dispatch(increaseSet());
+    }
   }
 };
 
@@ -236,7 +250,11 @@ const gameReducer = (state = initialState, action) => {
           score.set === action.input.set
             ? { ...score, winner: action.input.winner }
             : score
-        )
+        ),
+        setScores:
+          action.input.winner === P1
+            ? { ...state.setScores, p1: state.setScores.p1 + 1 }
+            : { ...state.setScores, p2: state.setScores.p2 + 1 }
       };
     }
     case UPDATE_WINNER: {
