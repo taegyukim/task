@@ -105,10 +105,10 @@ const Game = props => {
     }
   };
 
-  const onTimeOut = () => {
-    props.updateScore({ set: props.currentSet, player: "p2" });
-    props.stopGame();
-  };
+  // const onTimeOut = () => {
+  //   props.updateScore({ set: props.currentSet, player: "p2" });
+  //   props.stopGame();
+  // };
 
   return (
     <div>
@@ -143,7 +143,7 @@ const Game = props => {
           setIsTimerRunning={setIsTimerRunning}
           p1Pick={props.p1Pick}
           p2Pick={props.p2Pick}
-          onTimeOut={onTimeOut}
+          onTimeout={props.onTimeout}
           killTimer={props.killTimer}
           remainingTime={props.timer.remainingTime}
         />

@@ -1,3 +1,5 @@
+import { getRoundWinner } from "../utils";
+
 const P1 = "p1";
 const P2 = "p2";
 const DRAW = "draw";
@@ -103,6 +105,34 @@ export const startRound = () => (dispatch, getState) => {
       dispatch(reduceTime());
     }, 1000);
     dispatch(setIntervalID({ intervalID }));
+  }
+};
+
+export const onTimeout = () => (dispatch, getState) => {
+  console.log("123");
+  const state = getState().gameReducer;
+  // 타이머 중지, 리셋
+  clearInterval(state.timer.intervalID);
+  dispatch(stopTimer());
+  dispatch(resetTimer());
+
+  // p2 의 승리
+  dispatch(updateScore({ set: state.currentSet, winner: P2 }));
+
+  // 게임 상태 중단으로 변경
+  dispatch(stopGame());
+};
+
+export const endRound = () => (dispatch, getState) => {
+  dispatch(stopGame());
+};
+
+export const setRoundWinner = () => (dispatch, getState) => {
+  const state = getState().gameReducer;
+  const result = getRoundWinner(state.p1Pick, state.p2Pick);
+  if (result === DRAW) {
+    alert("무승부!");
+    dispatch(stopGame());
   }
 };
 

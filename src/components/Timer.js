@@ -50,6 +50,13 @@ const Timer = props => {
     }
   }, [props.p1Pick, props.p2Pick, displayTime]);
 
+  useEffect(() => {
+    if(props.remainingTime <= 0) {
+      props.onTimeout();
+      alert('시간 초과. p2 승리!')
+    }
+  }, [props.remainingTime])
+
   return (
     <StyledTimer>
       <h3>제한 시간</h3>
