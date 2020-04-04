@@ -1,8 +1,10 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import styled from "styled-components";
 import Player from "./Player";
 import Timer from "./Timer";
 import Panel from "./Panel";
+
+import { P1, P2, EMPTY } from "../utils";
 
 const StyledGameArea = styled.section`
   margin-top: 50px;
@@ -36,8 +38,8 @@ const Game = props => {
   useEffect(() => {
     if (
       props.isRunning === true &&
-      props.p1Pick !== "" &&
-      props.p2Pick !== ""
+      props.p1Pick !== EMPTY &&
+      props.p2Pick !== EMPTY
     ) {
       props.setRoundWinner();
     }
@@ -77,7 +79,7 @@ const Game = props => {
           <button onClick={props.quitGame}>그만하기</button>
         </div>
         <Player
-          player={"p1"}
+          player={P1}
           isRunning={props.isRunning}
           pick={props.p1Pick}
           pickCard={props.pickCard}
@@ -87,7 +89,7 @@ const Game = props => {
           remainingTime={props.timer.remainingTime}
         />
         <Player
-          player={"p2"}
+          player={P2}
           isRunning={props.isRunning}
           pick={props.p2Pick}
           pickCard={props.pickCard}

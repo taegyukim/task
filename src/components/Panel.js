@@ -1,6 +1,8 @@
 import React from "react";
 import styled from "styled-components";
 
+import { P1, P2 } from "../utils";
+
 const StyledPanel = styled.div`
   table {
     border-collapse: collapse;
@@ -53,7 +55,7 @@ const Panel = props => {
               </td>
             ))}
             <td style={{ fontSize: "25px", fontWeight: "bold" }}>
-              {props.winner === "p1" ? "승" : ""}
+              {props.winner === P1 ? "승" : ""}
             </td>
           </tr>
           <tr id="result-p2">
@@ -67,7 +69,7 @@ const Panel = props => {
               </td>
             ))}
             <td style={{ fontSize: "25px", fontWeight: "bold" }}>
-              {props.winner === "p2" ? "승" : ""}
+              {props.winner === P2 ? "승" : ""}
             </td>
           </tr>
         </tbody>
