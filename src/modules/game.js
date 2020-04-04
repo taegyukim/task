@@ -21,31 +21,21 @@ const SET_INTERVAL_ID = "SET_INTERVAL_ID";
 
 // action creator
 export const startGame = () => ({ type: GAME_START });
-
 export const stopGame = () => ({ type: GAME_STOP });
-
 export const restartGame = () => ({ type: GAME_RESTART });
-
 export const quitGame = () => ({ type: GAME_QUIT });
 
-export const increaseSet = () => ({ type: INCREASE_SET });
-
 export const pickCard = input => ({ type: PICK_CARD, input });
-
 export const resetPick = () => ({ type: RESET_PICK });
 
 export const updateScore = input => ({ type: UPDATE_SCORE, input });
-
 export const updateSetWinner = input => ({ type: UPDATE_SET_WINNER, input });
-
 export const updateWinner = winner => ({ type: UPDATE_WINNER, winner });
+export const increaseSet = () => ({ type: INCREASE_SET });
 
 export const startTimer = () => ({ type: START_TIMER });
-
 export const resetTimer = () => ({ type: RESET_TIMER });
-
 export const reduceTime = () => ({ type: REDUCE_TIME });
-
 export const setIntervalID = input => ({ type: SET_INTERVAL_ID, input });
 
 // initial state
@@ -129,10 +119,8 @@ export const setFinalWinner = () => (dispatch, getState) => {
   const state = getState().gameReducer;
   if (state.setScores.p1 === 3) {
     dispatch(updateWinner(P1));
-    alert("p1 최종 승리!");
   } else if (state.setScores.p2 === 3) {
     dispatch(updateWinner(P2));
-    alert("p2 최종 승리!");
   }
 };
 

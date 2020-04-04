@@ -57,7 +57,7 @@ const StyledPlayer = styled.div`
 
 const Player = ({ player, isRunning, pick, pickCard }) => {
   useEffect(() => {
-    const timeToWait = Math.floor(Math.random() * 1000) % 2;
+    const timeToWait = Math.floor(Math.random() * 1000) % 15;
     if (isRunning && player === P2) {
       setTimeout(() => {
         const card = pickRandom();
