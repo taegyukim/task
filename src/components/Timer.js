@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
 import styled from "styled-components";
+import PropTypes from "prop-types";
 
 const StyledTimer = styled.div`
   width: 200px;
@@ -21,6 +22,11 @@ const Timer = ({ onTimeout, remainingTime }) => {
       <h2>{remainingTime}</h2>
     </StyledTimer>
   );
+};
+
+Timer.propTypes = {
+  onTimeout: PropTypes.func,
+  remainingTime: PropTypes.number
 };
 
 export default Timer;

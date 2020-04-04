@@ -16,6 +16,7 @@ const GameContainer = ({
   isRunning,
   currentSet,
   scores,
+  setScores,
   p1Pick,
   p2Pick,
   winner,
@@ -26,7 +27,6 @@ const GameContainer = ({
   pickCard,
   setRoundWinner,
   setSetWinner,
-  setScores,
   setFinalWinner,
   onTimeout,
 }) => {
@@ -35,6 +35,7 @@ const GameContainer = ({
       isRunning={isRunning}
       currentSet={currentSet}
       scores={scores}
+      setScores={setScores}
       p1Pick={p1Pick}
       p2Pick={p2Pick}
       winner={winner}
@@ -45,7 +46,6 @@ const GameContainer = ({
       pickCard={pickCard}
       setRoundWinner={setRoundWinner}
       setSetWinner={setSetWinner}
-      setScores={setScores}
       setFinalWinner={setFinalWinner}
       onTimeout={onTimeout}
     />
@@ -58,11 +58,11 @@ const mapStateToProps = state => {
     isRunning: gameState.isRunning,
     currentSet: gameState.currentSet,
     scores: gameState.scores,
+    setScores: gameState.setScores,
     p1Pick: gameState.p1Pick,
     p2Pick: gameState.p2Pick,
     winner: gameState.winner,
     timer: gameState.timer,
-    setScores: gameState.setScores
   };
 };
 

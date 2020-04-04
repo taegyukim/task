@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import PropTypes from "prop-types";
 
 import { P1, P2 } from "../utils";
 
@@ -76,6 +77,12 @@ const Panel = ({ scores, currentSet, winner }) => {
       </table>
     </StyledPanel>
   );
+};
+
+Panel.propTypes = {
+  scores: PropTypes.array,
+  currentSet: PropTypes.number,
+  winner: PropTypes.string
 };
 
 export default Panel;

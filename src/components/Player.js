@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
 import styled from "styled-components";
+import PropTypes from "prop-types";
 
 import {
   P1,
@@ -114,6 +115,13 @@ const Player = ({ player, isRunning, pick, pickCard }) => {
       )}
     </StyledPlayer>
   );
+};
+
+Player.propTypes = {
+  player: PropTypes.string,
+  isRunning: PropTypes.bool,
+  pick: PropTypes.string,
+  pickCard: PropTypes.func
 };
 
 export default Player;

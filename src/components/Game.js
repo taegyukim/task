@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
 import styled from "styled-components";
+import PropTypes from "prop-types";
 import Player from "./Player";
 import Timer from "./Timer";
 import Panel from "./Panel";
@@ -49,15 +50,11 @@ const Game = ({
   setSetWinner,
   setScores,
   setFinalWinner,
-  onTimeout,
+  onTimeout
 }) => {
   // 라운드 승패 판별
   useEffect(() => {
-    if (
-      isRunning === true &&
-      p1Pick !== EMPTY &&
-      p2Pick !== EMPTY
-    ) {
+    if (isRunning === true && p1Pick !== EMPTY && p2Pick !== EMPTY) {
       setRoundWinner();
     }
   }, [p1Pick, p2Pick]);
@@ -74,11 +71,7 @@ const Game = ({
 
   return (
     <div>
-      <Panel
-        scores={scores}
-        currentSet={currentSet}
-        winner={winner}
-      />
+      <Panel scores={scores} currentSet={currentSet} winner={winner} />
       <p>{`${setScores.p1}, ${setScores.p2}`}</p>
       <h2>{isRunning ? "게임 진행 중" : "게임 중단"}</h2>
       <StyledGameArea>
@@ -99,10 +92,7 @@ const Game = ({
           pick={p1Pick}
           pickCard={pickCard}
         />
-        <Timer
-          onTimeout={onTimeout}
-          remainingTime={timer.remainingTime}
-        />
+        <Timer onTimeout={onTimeout} remainingTime={timer.remainingTime} />
         <Player
           player={P2}
           isRunning={isRunning}
@@ -112,6 +102,25 @@ const Game = ({
       </StyledGameArea>
     </div>
   );
+};
+
+Game.propTypes = {
+  isRunning: PropTypes.bool,
+  currentSet: PropTypes.number,
+  scores: PropTypes.array,
+  setScores: PropTypes.object,
+  p1Pick: PropTypes.string,
+  p2Pick: PropTypes.string,
+  winner: PropTypes.string,
+  timer: PropTypes.object,
+  startRound: PropTypes.func,
+  onQuitGame: PropTypes.func,
+  onRestartGame: PropTypes.func,
+  pickCard: PropTypes.func,
+  setRoundWinner: PropTypes.func,
+  setSetWinner: PropTypes.func,
+  setFinalWinner: PropTypes.func,
+  onTimeout: PropTypes.func
 };
 
 export default Game;
