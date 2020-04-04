@@ -45,8 +45,6 @@ export const updateWinner = winner => ({ type: UPDATE_WINNER, winner });
 
 export const startTimer = () => ({ type: START_TIMER });
 
-export const stopTimer = () => ({ type: STOP_TIMER });
-
 export const resetTimer = () => ({ type: RESET_TIMER });
 
 export const reduceTime = () => ({ type: REDUCE_TIME });
@@ -90,7 +88,6 @@ export const startRound = () => (dispatch, getState) => {
 export const endRound = () => (dispatch, getState) => {
   dispatch(stopGame());
   clearInterval(getState().gameReducer.timer.intervalID);
-  dispatch(stopTimer());
   dispatch(resetTimer());
 };
 
@@ -103,14 +100,14 @@ export const onRestartGame = () => dispatch => {
   dispatch(endRound());
   dispatch(restartGame());
   dispatch(resetPick());
-    dispatch(startGame());
+  dispatch(startGame());
 
-    // 타이머 시작
-    dispatch(startTimer());
-    const intervalID = setInterval(() => {
-      dispatch(reduceTime());
-    }, 1000);
-    dispatch(setIntervalID({ intervalID }));
+  // 타이머 시작
+  dispatch(startTimer());
+  const intervalID = setInterval(() => {
+    dispatch(reduceTime());
+  }, 1000);
+  dispatch(setIntervalID({ intervalID }));
 };
 
 export const setRoundWinner = () => (dispatch, getState) => {
@@ -153,12 +150,9 @@ export const onTimeout = () => (dispatch, getState) => {
   const state = getState().gameReducer;
   // 타이머 중지, 리셋
   clearInterval(state.timer.intervalID);
-  dispatch(stopTimer());
   dispatch(resetTimer());
-
   // p2 의 승리
   dispatch(updateScore({ set: state.currentSet, winner: P2 }));
-
   // 게임 상태 중단으로 변경
   dispatch(stopGame());
 };
@@ -183,7 +177,7 @@ const gameReducer = (state = initialState, action) => {
     case GAME_RESTART: {
       return {
         ...initialState,
-        isRunning: true,
+        isRunning: true
       };
     }
     case GAME_QUIT: {
@@ -268,22 +262,14 @@ const gameReducer = (state = initialState, action) => {
         }
       };
     }
-    case STOP_TIMER: {
-      return {
-        ...state,
-        timer: {
-          ...state.timer,
-          isRunning: false,
-          intervalID: ""
-        }
-      };
-    }
     case RESET_TIMER: {
       return {
         ...state,
         timer: {
           ...state.timer,
-          remainingTime: 15
+          isRunning: false,
+          remainingTime: 15,
+          intervalID: ""
         }
       };
     }

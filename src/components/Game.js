@@ -5,7 +5,7 @@ import Player from "./Player";
 import Timer from "./Timer";
 import Panel from "./Panel";
 
-import { P1, P2, EMPTY } from "../utils";
+import { P1, P2 } from "../utils";
 
 const StyledGameArea = styled.section`
   margin-top: 50px;
@@ -54,7 +54,7 @@ const Game = ({
 }) => {
   // 라운드 승패 판별
   useEffect(() => {
-    if (isRunning === true && p1Pick !== EMPTY && p2Pick !== EMPTY) {
+    if (isRunning === true && p1Pick !== "" && p2Pick !== "") {
       setRoundWinner();
     }
   }, [p1Pick, p2Pick]);

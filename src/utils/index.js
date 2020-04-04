@@ -4,7 +4,6 @@ export const DRAW = "draw";
 export const SCISSORS = "scissors";
 export const ROCK = "rock";
 export const PAPER = "paper";
-export const EMPTY = "";
 
 export const pickRandom = () => {
   const randomNumber = Math.floor(Math.random() * 1000) % 3;
