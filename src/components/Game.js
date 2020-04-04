@@ -110,22 +110,6 @@ const Game = props => {
     props.stopGame();
   };
 
-  const resetPicks = () => {
-    props.pickCard({ player: "p1", pick: "" });
-    props.pickCard({ player: "p2", pick: "" });
-  };
-
-  const onGameStart = () => {
-    if (props.isRunning) {
-      alert("이미 게임이 진행중입니다!");
-    } else {
-      resetPicks();
-      props.startGame();
-      setIsTimerRunning(true);
-    }
-  };
-
-
   return (
     <div>
       <Panel
@@ -141,7 +125,7 @@ const Game = props => {
           <button
             disabled={props.winner}
             style={{ opacity: props.winner ? 0.3 : 1 }}
-            onClick={onGameStart}
+            onClick={props.startRound}
           >
             게임 시작
           </button>
@@ -160,6 +144,8 @@ const Game = props => {
           p1Pick={props.p1Pick}
           p2Pick={props.p2Pick}
           onTimeOut={onTimeOut}
+          killTimer={props.killTimer}
+          remainingTime={props.timer.remainingTime}
         />
         <Player
           player={"p2"}

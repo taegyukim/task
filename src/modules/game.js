@@ -15,6 +15,7 @@ const GAME_QUIT = "GAME_QUIT";
 const INCREASE_SET = "INCREASE_SET";
 
 const PICK_CARD = "PICK_CARD";
+const RESET_PICK = "RESET_PICK";
 
 const UPDATE_SCORE = "UPDATE_SCORE";
 const UPDATE_SET_WINNER = "UPDATE_SET_WINNER";
@@ -39,6 +40,8 @@ export const quitGame = () => ({ type: GAME_QUIT });
 export const increaseSet = () => ({ type: INCREASE_SET });
 
 export const pickCard = input => ({ type: PICK_CARD, input });
+
+export const resetPick = () => ({ type: RESET_PICK });
 
 export const updateScore = input => ({ type: UPDATE_SCORE, input });
 
@@ -77,13 +80,30 @@ export const runTimer = () => dispatch => {
   const intervalID = setInterval(() => {
     dispatch(reduceTime());
   }, 1000);
-  dispatch(setIntervalID({intervalID}));
+  dispatch(setIntervalID({ intervalID }));
 };
 
 export const killTimer = () => (dispatch, getState) => {
   clearInterval(getState().gameReducer.timer.intervalID);
   dispatch(stopTimer());
   dispatch(resetTimer());
+};
+
+export const startRound = () => (dispatch, getState) => {
+  if (getState().gameReducer.isRunning) {
+    alert("이미 게임이 진행중입니다!");
+  } else {
+    // 패 초기화, 게임 시작
+    dispatch(resetPick());
+    dispatch(startGame());
+
+    // 타이머 시작
+    dispatch(startTimer());
+    const intervalID = setInterval(() => {
+      dispatch(reduceTime());
+    }, 1000);
+    dispatch(setIntervalID({ intervalID }));
+  }
 };
 
 // reducer
@@ -143,6 +163,13 @@ const gameReducer = (state = initialState, action) => {
         };
       }
       break;
+    }
+    case RESET_PICK: {
+      return {
+        ...state,
+        p1Pick: "",
+        p2Pick: ""
+      };
     }
     case UPDATE_SCORE: {
       return {

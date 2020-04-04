@@ -53,7 +53,7 @@ const Timer = props => {
   return (
     <StyledTimer>
       <h3>제한 시간</h3>
-      <h2>{displayTime}</h2>
+      <h2>{props.remainingTime}</h2>
     </StyledTimer>
   );
 };

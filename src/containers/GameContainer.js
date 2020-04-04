@@ -13,6 +13,7 @@ import {
   updateWinner,
   runTimer,
   killTimer,
+  startRound
 } from "../modules/game";
 
 const GameContainer = ({
@@ -33,7 +34,8 @@ const GameContainer = ({
   updateWinner,
   runTimer,
   killTimer,
-  timer
+  timer,
+  startRound
 }) => {
   return (
     <Game
@@ -55,6 +57,7 @@ const GameContainer = ({
       runTimer={runTimer}
       killTimer={killTimer}
       timer={timer}
+      startRound={startRound}
     />
   );
 };
@@ -72,7 +75,7 @@ const mapStateToProps = state => {
   };
 };
 
-const mapDispatchToProps = (dispatch, ownProps) => ({
+const mapDispatchToProps = (dispatch) => ({
   startGame: () => {
     dispatch(startGame());
   },
@@ -105,6 +108,9 @@ const mapDispatchToProps = (dispatch, ownProps) => ({
   },
   killTimer: () => {
     dispatch(killTimer());
+  },
+  startRound: () => {
+    dispatch(startRound());
   }
 });
 
