@@ -59,12 +59,12 @@ const Game = ({
     }
   }, [p1Pick, p2Pick]);
 
-  // 어느 한쪽이 3게임을 먼저 승리하면 해당 세트 승리
+  // 세트 승패 판별
   useEffect(() => {
     setSetWinner();
   }, [scores]);
 
-  // 어느 한쪽이 3세트를 먼저 승리하면 전체 게임 승리
+  // 최종 승자 판별
   useEffect(() => {
     setFinalWinner();
   }, [setScores]);

@@ -6,18 +6,15 @@ const GAME_STOP = "GAME_STOP";
 const GAME_RESTART = "GAME_RESTART";
 const GAME_QUIT = "GAME_QUIT";
 
-const INCREASE_SET = "INCREASE_SET";
-
 const PICK_CARD = "PICK_CARD";
 const RESET_PICK = "RESET_PICK";
 
 const UPDATE_SCORE = "UPDATE_SCORE";
 const UPDATE_SET_WINNER = "UPDATE_SET_WINNER";
-
 const UPDATE_WINNER = "UPDATE_WINNER";
+const INCREASE_SET = "INCREASE_SET";
 
 const START_TIMER = "START_TIMER";
-const STOP_TIMER = "STOP_TIMER";
 const RESET_TIMER = "RESET_TIMER";
 const REDUCE_TIME = "REDUCE_TIME";
 const SET_INTERVAL_ID = "SET_INTERVAL_ID";
@@ -99,8 +96,6 @@ export const onQuitGame = () => dispatch => {
 export const onRestartGame = () => dispatch => {
   dispatch(endRound());
   dispatch(restartGame());
-  dispatch(resetPick());
-  dispatch(startGame());
 
   // 타이머 시작
   dispatch(startTimer());
@@ -113,11 +108,10 @@ export const onRestartGame = () => dispatch => {
 export const setRoundWinner = () => (dispatch, getState) => {
   const state = getState().gameReducer;
   const result = getRoundWinner(state.p1Pick, state.p2Pick);
+  dispatch(endRound());
   if (result === DRAW) {
-    dispatch(endRound());
     alert("무승부!");
   } else {
-    dispatch(endRound());
     dispatch(updateScore({ set: state.currentSet, winner: result }));
   }
 };
