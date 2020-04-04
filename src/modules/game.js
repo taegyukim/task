@@ -21,6 +21,12 @@ const UPDATE_SET_WINNER = "UPDATE_SET_WINNER";
 
 const UPDATE_WINNER = "UPDATE_WINNER";
 
+const START_TIMER = "START_TIMER";
+const STOP_TIMER = "STOP_TIMER";
+const RESET_TIMER = "RESET_TIMER";
+const REDUCE_TIME = "REDUCE_TIME";
+const SET_INTERVAL_ID = "SET_INTERVAL_ID";
+
 // action creator
 export const startGame = () => ({ type: GAME_START });
 
@@ -40,6 +46,16 @@ export const updateSetWinner = input => ({ type: UPDATE_SET_WINNER, input });
 
 export const updateWinner = winner => ({ type: UPDATE_WINNER, winner });
 
+export const startTimer = () => ({ type: START_TIMER });
+
+export const stopTimer = () => ({ type: STOP_TIMER });
+
+export const resetTimer = () => ({ type: RESET_TIMER });
+
+export const reduceTime = () => ({ type: REDUCE_TIME });
+
+export const setIntervalID = input => ({ type: SET_INTERVAL_ID, input });
+
 // initial state
 const initialState = {
   isRunning: false,
@@ -47,7 +63,27 @@ const initialState = {
   scores: [{ set: 1, p1: 0, p2: 0, winner: "" }],
   p1Pick: "",
   p2Pick: "",
-  winner: ""
+  winner: "",
+  timer: {
+    isRunning: false,
+    remainingTime: 15,
+    intervalID: ""
+  }
+};
+
+// business logics
+export const runTimer = () => dispatch => {
+  dispatch(startTimer());
+  const intervalID = setInterval(() => {
+    dispatch(reduceTime());
+  }, 1000);
+  dispatch(setIntervalID({intervalID}));
+};
+
+export const killTimer = () => (dispatch, getState) => {
+  clearInterval(getState().gameReducer.timer.intervalID);
+  dispatch(stopTimer());
+  dispatch(resetTimer());
 };
 
 // reducer
@@ -144,6 +180,52 @@ const gameReducer = (state = initialState, action) => {
       return {
         ...state,
         winner: action.winner
+      };
+    }
+    case START_TIMER: {
+      return {
+        ...state,
+        timer: {
+          ...state.timer,
+          isRunning: true
+        }
+      };
+    }
+    case STOP_TIMER: {
+      return {
+        ...state,
+        timer: {
+          ...state.timer,
+          isRunning: false,
+          intervalID: ""
+        }
+      };
+    }
+    case RESET_TIMER: {
+      return {
+        ...state,
+        timer: {
+          ...state.timer,
+          remainingTime: 15
+        }
+      };
+    }
+    case REDUCE_TIME: {
+      return {
+        ...state,
+        timer: {
+          ...state.timer,
+          remainingTime: state.timer.remainingTime - 1
+        }
+      };
+    }
+    case SET_INTERVAL_ID: {
+      return {
+        ...state,
+        timer: {
+          ...state.timer,
+          intervalID: action.input.intervalID
+        }
       };
     }
     default: {

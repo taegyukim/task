@@ -10,7 +10,9 @@ import {
   pickCard,
   updateScore,
   updateSetWinner,
-  updateWinner
+  updateWinner,
+  runTimer,
+  killTimer,
 } from "../modules/game";
 
 const GameContainer = ({
@@ -28,7 +30,10 @@ const GameContainer = ({
   pickCard,
   updateScore,
   updateSetWinner,
-  updateWinner
+  updateWinner,
+  runTimer,
+  killTimer,
+  timer
 }) => {
   return (
     <Game
@@ -47,6 +52,9 @@ const GameContainer = ({
       updateScore={updateScore}
       updateSetWinner={updateSetWinner}
       updateWinner={updateWinner}
+      runTimer={runTimer}
+      killTimer={killTimer}
+      timer={timer}
     />
   );
 };
@@ -59,11 +67,12 @@ const mapStateToProps = state => {
     scores: gameState.scores,
     p1Pick: gameState.p1Pick,
     p2Pick: gameState.p2Pick,
-    winner: gameState.winner
+    winner: gameState.winner,
+    timer: gameState.timer
   };
 };
 
-const mapDispatchToProps = dispatch => ({
+const mapDispatchToProps = (dispatch, ownProps) => ({
   startGame: () => {
     dispatch(startGame());
   },
@@ -85,11 +94,17 @@ const mapDispatchToProps = dispatch => ({
   updateScore: ({ set, player }) => {
     dispatch(updateScore({ set, player }));
   },
-  updateSetWinner: ({set, winner}) => {
-    dispatch(updateSetWinner({set, winner}));
+  updateSetWinner: ({ set, winner }) => {
+    dispatch(updateSetWinner({ set, winner }));
   },
-  updateWinner: (winner) => {
-    dispatch(updateWinner(winner))
+  updateWinner: winner => {
+    dispatch(updateWinner(winner));
+  },
+  runTimer: () => {
+    dispatch(runTimer());
+  },
+  killTimer: () => {
+    dispatch(killTimer());
   }
 });
 

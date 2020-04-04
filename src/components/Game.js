@@ -125,6 +125,7 @@ const Game = props => {
     }
   };
 
+
   return (
     <div>
       <Panel
@@ -132,6 +133,8 @@ const Game = props => {
         currentSet={props.currentSet}
         winner={props.winner}
       />
+      <button onClick={props.runTimer}>시작</button>
+      <button onClick={props.killTimer}>리셋</button>
       <h2>{props.isRunning ? "게임 진행 중" : "게임 중단"}</h2>
       <StyledGameArea>
         <div className={"game-buttons"}>
