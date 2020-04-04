@@ -108,6 +108,25 @@ export const startRound = () => (dispatch, getState) => {
   }
 };
 
+export const endRound = () => (dispatch, getState) => {
+  dispatch(stopGame());
+  clearInterval(getState().gameReducer.timer.intervalID);
+  dispatch(stopTimer());
+  dispatch(resetTimer());
+};
+
+export const setRoundWinner = () => (dispatch, getState) => {
+  const state = getState().gameReducer;
+  const result = getRoundWinner(state.p1Pick, state.p2Pick);
+  if (result === DRAW) {
+    dispatch(endRound())
+    alert("무승부!");
+  } else {
+    dispatch(endRound())
+    dispatch(updateScore({ set: state.currentSet, winner: result }));
+  }
+};
+
 export const onTimeout = () => (dispatch, getState) => {
   console.log("123");
   const state = getState().gameReducer;
@@ -121,19 +140,6 @@ export const onTimeout = () => (dispatch, getState) => {
 
   // 게임 상태 중단으로 변경
   dispatch(stopGame());
-};
-
-export const endRound = () => (dispatch, getState) => {
-  dispatch(stopGame());
-};
-
-export const setRoundWinner = () => (dispatch, getState) => {
-  const state = getState().gameReducer;
-  const result = getRoundWinner(state.p1Pick, state.p2Pick);
-  if (result === DRAW) {
-    alert("무승부!");
-    dispatch(stopGame());
-  }
 };
 
 // reducer

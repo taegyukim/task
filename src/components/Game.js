@@ -42,14 +42,7 @@ const Game = props => {
       props.p1Pick !== "" &&
       props.p2Pick !== ""
     ) {
-      const result = getRoundWinner(props.p1Pick, props.p2Pick);
-      if (result === "draw") {
-        alert("무승부입니다!");
-        props.stopGame();
-      } else {
-        props.updateScore({ set: props.currentSet, winner: result });
-        props.stopGame();
-      }
+      props.setRoundWinner();
     }
   }, [props.p1Pick, props.p2Pick]);
 
