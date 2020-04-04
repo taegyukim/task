@@ -1,10 +1,10 @@
-const P1 = "p1";
-const P2 = "p2";
-const DRAW = "draw";
-const SCISSORS = "scissors";
-const ROCK = "rock";
-const PAPER = "paper";
-const EMPTY = "";
+export const P1 = "p1";
+export const P2 = "p2";
+export const DRAW = "draw";
+export const SCISSORS = "scissors";
+export const ROCK = "rock";
+export const PAPER = "paper";
+export const EMPTY = "";
 
 export const pickRandom = () => {
   const randomNumber = Math.floor(Math.random() * 1000) % 3;

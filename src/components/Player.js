@@ -1,6 +1,8 @@
 import React, { useEffect } from "react";
 import styled from "styled-components";
 
+import { P1, P2, SCISSORS, ROCK, PAPER, pickRandom } from "../utils";
+
 const StyledPlayer = styled.div`
   width: 300px;
   display: flex;
@@ -44,26 +46,15 @@ const StyledPlayer = styled.div`
   }
 `;
 
-const pickRandom = () => {
-  const randomNumber = Math.floor(Math.random() * 1000) % 3;
-  if (randomNumber === 0) {
-    return "scissors";
-  } else if (randomNumber === 1) {
-    return "rock";
-  } else if (randomNumber === 2) {
-    return "paper";
-  }
-};
-
 const pickFormatter = pick => {
   switch (pick) {
-    case "scissors": {
+    case SCISSORS: {
       return "가위";
     }
-    case "rock": {
+    case ROCK: {
       return "바위";
     }
-    case "paper": {
+    case PAPER: {
       return "보";
     }
     default: {
@@ -75,10 +66,10 @@ const pickFormatter = pick => {
 const Player = props => {
   useEffect(() => {
     const timeToWait = Math.floor(Math.random() * 1000) % 2;
-    if (props.isRunning && props.player === "p2") {
+    if (props.isRunning && props.player === P2) {
       setTimeout(() => {
         const card = pickRandom();
-        props.pickCard({ player: "p2", pick: card });
+        props.pickCard({ player: P2, pick: card });
       }, timeToWait * 1000);
     }
   }, [props.isRunning]);
@@ -87,7 +78,7 @@ const Player = props => {
     if (props.isRunning === false) {
       alert("게임 중이 아닙니다!");
     } else {
-      props.pickCard({ player: "p1", pick: pick });
+      props.pickCard({ player: P1, pick: pick });
     }
   };
 
@@ -96,32 +87,32 @@ const Player = props => {
       <h2>{props.player}</h2>
       <div className={`choice + ${props.player}`}>
         <span>
-          {props.player === "p2"
+          {props.player === P2
             ? props.isRunning && props.pick
               ? "?"
               : pickFormatter(props.pick)
             : pickFormatter(props.pick)}
         </span>
       </div>
-      {props.player === "p1" ? (
+      {props.player === P1 ? (
         <div className="player-buttons">
           <button
             disabled={!props.isRunning}
-            value={"scissors"}
+            value={SCISSORS}
             onClick={e => handleP1Pick(e.target.value)}
           >
             가위
           </button>
           <button
             disabled={!props.isRunning}
-            value={"rock"}
+            value={ROCK}
             onClick={e => handleP1Pick(e.target.value)}
           >
             바위
           </button>
           <button
             disabled={!props.isRunning}
-            value={"paper"}
+            value={PAPER}
             onClick={e => handleP1Pick(e.target.value)}
           >
             보
