@@ -141,6 +141,17 @@ export const setSetWinner = () => (dispatch, getState) => {
   }
 };
 
+export const setFinalWinner = () => (dispatch, getState) => {
+  const state = getState().gameReducer;
+  if(state.setScores.p1 === 3) {
+    dispatch(updateWinner(P1));
+    alert('p1 최종 승리!')
+  } else if(state.setScores.p2 === 3) {
+    dispatch(updateWinner(P2));
+    alert('p2 최종 승리!')
+  }
+}
+
 export const onTimeout = () => (dispatch, getState) => {
   console.log("123");
   const state = getState().gameReducer;

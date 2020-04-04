@@ -16,7 +16,8 @@ import {
   startRound,
   onTimeout,
   setRoundWinner,
-  setSetWinner
+  setSetWinner,
+  setFinalWinner
 } from "../modules/game";
 
 const GameContainer = ({
@@ -41,7 +42,9 @@ const GameContainer = ({
   startRound,
   onTimeout,
   setRoundWinner,
-  setSetWinner
+  setSetWinner,
+  setScores,
+  setFinalWinner
 }) => {
   return (
     <Game
@@ -67,6 +70,8 @@ const GameContainer = ({
       onTimeout={onTimeout}
       setRoundWinner={setRoundWinner}
       setSetWinner={setSetWinner}
+      setScores={setScores}
+      setFinalWinner={setFinalWinner}
     />
   );
 };
@@ -80,7 +85,8 @@ const mapStateToProps = state => {
     p1Pick: gameState.p1Pick,
     p2Pick: gameState.p2Pick,
     winner: gameState.winner,
-    timer: gameState.timer
+    timer: gameState.timer,
+    setScores: gameState.setScores,
   };
 };
 
@@ -129,6 +135,9 @@ const mapDispatchToProps = dispatch => ({
   },
   setSetWinner: () => {
     dispatch(setSetWinner());
+  },
+  setFinalWinner: () => {
+    dispatch(setFinalWinner());
   }
 });
 

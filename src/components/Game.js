@@ -32,8 +32,6 @@ const StyledGameArea = styled.section`
 `;
 
 const Game = props => {
-  const [setWins, setSetWins] = useState({ p1: 0, p2: 0 });
-
   // 라운드 승패 판별
   useEffect(() => {
     if (
@@ -52,14 +50,8 @@ const Game = props => {
 
   // 어느 한쪽이 3세트를 먼저 승리하면 전체 게임 승리
   useEffect(() => {
-    if (setWins.p1 === 3) {
-      props.updateWinner("p1");
-      alert("p1 최종 승리!");
-    } else if (setWins.p2 === 3) {
-      props.updateWinner("p2");
-      alert("p2 최종 승리!");
-    }
-  }, [setWins]);
+    props.setFinalWinner();
+  }, [props.setScores]);
 
   return (
     <div>
@@ -70,6 +62,7 @@ const Game = props => {
       />
       <button onClick={props.runTimer}>시작</button>
       <button onClick={props.killTimer}>리셋</button>
+      <p>{`${props.setScores.p1}, ${props.setScores.p2}`}</p>
       <h2>{props.isRunning ? "게임 진행 중" : "게임 중단"}</h2>
       <StyledGameArea>
         <div className={"game-buttons"}>
