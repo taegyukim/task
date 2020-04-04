@@ -1,7 +1,15 @@
 import React, { useEffect } from "react";
 import styled from "styled-components";
 
-import { P1, P2, SCISSORS, ROCK, PAPER, pickRandom, pickFormatter } from "../utils";
+import {
+  P1,
+  P2,
+  SCISSORS,
+  ROCK,
+  PAPER,
+  pickRandom,
+  pickFormatter
+} from "../utils";
 
 const StyledPlayer = styled.div`
   width: 300px;
