@@ -9,7 +9,7 @@ import {
   setSetWinner,
   setFinalWinner,
   onQuitGame,
-  onRestartGame
+  onRestartGame,
 } from "../modules/game";
 
 const GameContainer = ({
@@ -21,6 +21,7 @@ const GameContainer = ({
   p2Pick,
   winner,
   timer,
+  roundResult,
   startRound,
   onQuitGame,
   onRestartGame,
@@ -40,6 +41,7 @@ const GameContainer = ({
       p2Pick={p2Pick}
       winner={winner}
       timer={timer}
+      roundResult={roundResult}
       startRound={startRound}
       onQuitGame={onQuitGame}
       onRestartGame={onRestartGame}
@@ -63,6 +65,7 @@ const mapStateToProps = state => {
     p2Pick: gameState.p2Pick,
     winner: gameState.winner,
     timer: gameState.timer,
+    roundResult: gameState.roundResult,
   };
 };
 

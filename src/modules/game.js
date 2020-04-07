@@ -19,6 +19,8 @@ const RESET_TIMER = "RESET_TIMER";
 const REDUCE_TIME = "REDUCE_TIME";
 const SET_INTERVAL_ID = "SET_INTERVAL_ID";
 
+const SET_ROUND_RESULT = "SET_ROUND_RESULT";
+
 // action creator
 export const startGame = () => ({ type: GAME_START });
 export const stopGame = () => ({ type: GAME_STOP });
@@ -38,6 +40,8 @@ export const resetTimer = () => ({ type: RESET_TIMER });
 export const reduceTime = () => ({ type: REDUCE_TIME });
 export const setIntervalID = input => ({ type: SET_INTERVAL_ID, input });
 
+export const setRoundResult = input => ({ type: SET_ROUND_RESULT, input });
+
 // initial state
 const initialState = {
   isRunning: false,
@@ -51,12 +55,14 @@ const initialState = {
     isRunning: false,
     remainingTime: 15,
     intervalID: ""
-  }
+  },
+  roundResult: ''
 };
 
 // business logics
 export const startRound = () => (dispatch, getState) => {
   // 패 초기화, 게임 시작
+  dispatch(setRoundResult({roundResult: ""}));
   dispatch(resetPick());
   dispatch(startGame());
 
@@ -96,8 +102,9 @@ export const setRoundWinner = () => (dispatch, getState) => {
   const result = getRoundWinner(state.p1Pick, state.p2Pick);
   dispatch(endRound());
   if (result === DRAW) {
-    alert("무승부!");
+    dispatch(setRoundResult({roundResult: result}))
   } else {
+    dispatch(setRoundResult({roundResult: result}));
     dispatch(updateScore({ set: state.currentSet, winner: result }));
   }
 };
@@ -268,6 +275,12 @@ const gameReducer = (state = initialState, action) => {
           intervalID: action.input.intervalID
         }
       };
+    }
+    case SET_ROUND_RESULT: {
+      return {
+        ...state,
+        roundResult: action.input.roundResult
+      }
     }
     default: {
       return state;

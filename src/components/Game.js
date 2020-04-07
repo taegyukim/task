@@ -5,7 +5,7 @@ import Player from "./Player";
 import Timer from "./Timer";
 import Panel from "./Panel";
 
-import { P1, P2 } from "../utils";
+import { P1, P2, DRAW } from "../utils";
 
 const StyledGameArea = styled.section`
   margin-top: 50px;
@@ -42,6 +42,7 @@ const Game = ({
   p2Pick,
   winner,
   timer,
+  roundResult,
   startRound,
   onQuitGame,
   onRestartGame,
@@ -50,7 +51,7 @@ const Game = ({
   setSetWinner,
   setScores,
   setFinalWinner,
-  onTimeout
+  onTimeout,
 }) => {
   // 라운드 승패 판별
   useEffect(() => {
@@ -68,6 +69,13 @@ const Game = ({
   useEffect(() => {
     setFinalWinner();
   }, [setScores]);
+
+  // 라운드 결과 alert
+  useEffect(() => {
+    if (roundResult) {
+      roundResult === DRAW ? alert("무승부") : alert(`${roundResult} 승`);
+    }
+  }, [roundResult]);
 
   return (
     <div>
@@ -113,6 +121,7 @@ Game.propTypes = {
   p2Pick: PropTypes.string,
   winner: PropTypes.string,
   timer: PropTypes.object,
+  roundResult: PropTypes.string,
   startRound: PropTypes.func,
   onQuitGame: PropTypes.func,
   onRestartGame: PropTypes.func,
@@ -120,7 +129,7 @@ Game.propTypes = {
   setRoundWinner: PropTypes.func,
   setSetWinner: PropTypes.func,
   setFinalWinner: PropTypes.func,
-  onTimeout: PropTypes.func
+  onTimeout: PropTypes.func,
 };
 
 export default Game;
