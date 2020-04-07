@@ -9,7 +9,7 @@ import {
   ROCK,
   PAPER,
   pickRandom,
-  pickFormatter
+  pickFormatter,
 } from "../utils";
 
 const StyledPlayer = styled.div`
@@ -66,7 +66,7 @@ const Player = ({ player, isRunning, pick, pickCard }) => {
     }
   }, [isRunning]);
 
-  const handleP1Pick = pick => {
+  const handleP1Pick = (pick) => {
     if (isRunning === false) {
       alert("게임 중이 아닙니다!");
     } else {
@@ -91,21 +91,21 @@ const Player = ({ player, isRunning, pick, pickCard }) => {
           <button
             disabled={!isRunning}
             value={SCISSORS}
-            onClick={e => handleP1Pick(e.target.value)}
+            onClick={(e) => handleP1Pick(e.target.value)}
           >
             가위
           </button>
           <button
             disabled={!isRunning}
             value={ROCK}
-            onClick={e => handleP1Pick(e.target.value)}
+            onClick={(e) => handleP1Pick(e.target.value)}
           >
             바위
           </button>
           <button
             disabled={!isRunning}
             value={PAPER}
-            onClick={e => handleP1Pick(e.target.value)}
+            onClick={(e) => handleP1Pick(e.target.value)}
           >
             보
           </button>
@@ -121,7 +121,7 @@ Player.propTypes = {
   player: PropTypes.string,
   isRunning: PropTypes.bool,
   pick: PropTypes.string,
-  pickCard: PropTypes.func
+  pickCard: PropTypes.func,
 };
 
 export default Player;

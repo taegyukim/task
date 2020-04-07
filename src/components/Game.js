@@ -48,7 +48,7 @@ const Game = ({
   onRestartGame,
   setScores,
   onTimeout,
-  onPickCard
+  onPickCard,
 }) => {
   // 라운드 결과 alert
   useEffect(() => {

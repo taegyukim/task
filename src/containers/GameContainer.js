@@ -6,7 +6,7 @@ import {
   onTimeout,
   onQuitGame,
   onRestartGame,
-  onPickCard
+  onPickCard,
 } from "../modules/game";
 
 const GameContainer = ({
@@ -23,7 +23,7 @@ const GameContainer = ({
   onQuitGame,
   onRestartGame,
   onTimeout,
-  onPickCard
+  onPickCard,
 }) => {
   return (
     <Game
@@ -45,7 +45,7 @@ const GameContainer = ({
   );
 };
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   const gameState = state.gameReducer;
   return {
     isRunning: gameState.isRunning,
@@ -60,7 +60,7 @@ const mapStateToProps = state => {
   };
 };
 
-const mapDispatchToProps = dispatch => ({
+const mapDispatchToProps = (dispatch) => ({
   startRound: () => {
     dispatch(startRound());
   },
@@ -75,7 +75,7 @@ const mapDispatchToProps = dispatch => ({
   },
   onPickCard: ({ player, pick }) => {
     dispatch(onPickCard({ player, pick }));
-  }
+  },
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(GameContainer);
