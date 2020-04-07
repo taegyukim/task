@@ -121,7 +121,7 @@ Player.propTypes = {
   player: PropTypes.string,
   isRunning: PropTypes.bool,
   pick: PropTypes.string,
-  pickCard: PropTypes.func,
+  onPickCard: PropTypes.func,
 };
 
 export default Player;

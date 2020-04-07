@@ -105,11 +105,8 @@ Game.propTypes = {
   startRound: PropTypes.func,
   onQuitGame: PropTypes.func,
   onRestartGame: PropTypes.func,
-  pickCard: PropTypes.func,
-  setRoundWinner: PropTypes.func,
-  setSetWinner: PropTypes.func,
-  setFinalWinner: PropTypes.func,
   onTimeout: PropTypes.func,
+  onPickCard: PropTypes.func,
 };
 
 export default Game;
