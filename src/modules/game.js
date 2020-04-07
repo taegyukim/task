@@ -97,39 +97,41 @@ export const onRestartGame = () => dispatch => {
   dispatch(setIntervalID({ intervalID }));
 };
 
-export const setRoundWinner = () => (dispatch, getState) => {
-  const state = getState().gameReducer;
-  const result = getRoundWinner(state.p1Pick, state.p2Pick);
-  dispatch(endRound());
-  if (result === DRAW) {
-    dispatch(setRoundResult({roundResult: result}))
-  } else {
-    dispatch(setRoundResult({roundResult: result}));
-    dispatch(updateScore({ set: state.currentSet, winner: result }));
-  }
-};
+// 플레이어가 패를 선택할 시 모든 승패 판별 로직이 실행되도록 작성
+export const onPickCard = (input) => (dispatch, getState) => {
+  dispatch(pickCard(input));
 
-export const setSetWinner = () => (dispatch, getState) => {
-  const state = getState().gameReducer;
-  if (state.currentSet >= 1) {
-    if (state.scores[state.currentSet - 1].p1 === 3) {
-      dispatch(updateSetWinner({ set: state.currentSet, winner: P1 }));
-      dispatch(increaseSet());
-    } else if (state.scores[state.currentSet - 1].p2 === 3) {
-      dispatch(updateSetWinner({ set: state.currentSet, winner: P2 }));
-      dispatch(increaseSet());
+  // 양 플레이어 모두 패를 선택했으면 라운드 종료 및 라운드 승자 판별
+  if(getState().gameReducer.p1Pick && getState().gameReducer.p2Pick){
+    dispatch(endRound());
+    const roundState = getState().gameReducer;
+    const result = getRoundWinner(roundState.p1Pick, roundState.p2Pick);
+    if (result === DRAW) {
+      dispatch(setRoundResult({roundResult: result}))
+    } else {
+      dispatch(setRoundResult({roundResult: result}));
+      dispatch(updateScore({ set: roundState.currentSet, winner: result }));
     }
   }
-};
 
-export const setFinalWinner = () => (dispatch, getState) => {
-  const state = getState().gameReducer;
-  if (state.setScores.p1 === 3) {
+  // 어느 한쪽이 3라운드 승리 시 해당 세트 승자 판별
+  const currentSetState = getState().gameReducer;
+  if (currentSetState.scores[currentSetState.currentSet - 1].p1 === 3) {
+    dispatch(updateSetWinner({ set: currentSetState.currentSet, winner: P1 }));
+    dispatch(increaseSet());
+  } else if (currentSetState.scores[currentSetState.currentSet - 1].p2 === 3) {
+    dispatch(updateSetWinner({ set: currentSetState.currentSet, winner: P2 }));
+    dispatch(increaseSet());
+  }
+
+  // 어느 한쪽이 3세트 승리 시 최종 승자 판별
+  const currentGameState = getState().gameReducer;
+  if (currentGameState.setScores.p1 === 3) {
     dispatch(updateWinner(P1));
-  } else if (state.setScores.p2 === 3) {
+  } else if (currentGameState.setScores.p2 === 3) {
     dispatch(updateWinner(P2));
   }
-};
+}
 
 export const onTimeout = () => (dispatch, getState) => {
   const state = getState().gameReducer;

@@ -46,30 +46,10 @@ const Game = ({
   startRound,
   onQuitGame,
   onRestartGame,
-  pickCard,
-  setRoundWinner,
-  setSetWinner,
   setScores,
-  setFinalWinner,
   onTimeout,
+  onPickCard
 }) => {
-  // 라운드 승패 판별
-  useEffect(() => {
-    if (isRunning === true && p1Pick !== "" && p2Pick !== "") {
-      setRoundWinner();
-    }
-  }, [p1Pick, p2Pick]);
-
-  // 세트 승패 판별
-  useEffect(() => {
-    setSetWinner();
-  }, [scores]);
-
-  // 최종 승자 판별
-  useEffect(() => {
-    setFinalWinner();
-  }, [setScores]);
-
   // 라운드 결과 alert
   useEffect(() => {
     if (roundResult) {
@@ -98,14 +78,14 @@ const Game = ({
           player={P1}
           isRunning={isRunning}
           pick={p1Pick}
-          pickCard={pickCard}
+          pickCard={onPickCard}
         />
         <Timer onTimeout={onTimeout} remainingTime={timer.remainingTime} />
         <Player
           player={P2}
           isRunning={isRunning}
           pick={p2Pick}
-          pickCard={pickCard}
+          pickCard={onPickCard}
         />
       </StyledGameArea>
     </div>

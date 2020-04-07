@@ -2,14 +2,11 @@ import React from "react";
 import { connect } from "react-redux";
 import Game from "../components/Game";
 import {
-  pickCard,
   startRound,
   onTimeout,
-  setRoundWinner,
-  setSetWinner,
-  setFinalWinner,
   onQuitGame,
   onRestartGame,
+  onPickCard
 } from "../modules/game";
 
 const GameContainer = ({
@@ -25,11 +22,8 @@ const GameContainer = ({
   startRound,
   onQuitGame,
   onRestartGame,
-  pickCard,
-  setRoundWinner,
-  setSetWinner,
-  setFinalWinner,
   onTimeout,
+  onPickCard
 }) => {
   return (
     <Game
@@ -45,11 +39,8 @@ const GameContainer = ({
       startRound={startRound}
       onQuitGame={onQuitGame}
       onRestartGame={onRestartGame}
-      pickCard={pickCard}
-      setRoundWinner={setRoundWinner}
-      setSetWinner={setSetWinner}
-      setFinalWinner={setFinalWinner}
       onTimeout={onTimeout}
+      onPickCard={onPickCard}
     />
   );
 };
@@ -79,21 +70,12 @@ const mapDispatchToProps = dispatch => ({
   onRestartGame: () => {
     dispatch(onRestartGame());
   },
-  pickCard: ({ player, pick }) => {
-    dispatch(pickCard({ player, pick }));
-  },
-  setRoundWinner: () => {
-    dispatch(setRoundWinner());
-  },
-  setSetWinner: () => {
-    dispatch(setSetWinner());
-  },
-  setFinalWinner: () => {
-    dispatch(setFinalWinner());
-  },
   onTimeout: () => {
     dispatch(onTimeout());
   },
+  onPickCard: ({ player, pick }) => {
+    dispatch(onPickCard({ player, pick }));
+  }
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(GameContainer);
