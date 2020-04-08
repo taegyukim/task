@@ -102,45 +102,45 @@ export const onPickCard = (input) => (dispatch, getState) => {
   dispatch(pickCard(input));
 
   // 양 플레이어 모두 패를 선택했으면 라운드 종료, 승패 판별 로직 시행
-  const currentRoundState = getState().gameReducer;
-  if (currentRoundState.p1Pick && currentRoundState.p2Pick) {
+  let state = getState().gameReducer;
+  if (state.p1Pick && state.p2Pick) {
     dispatch(endRound());
 
     // 해당 라운드 승자 판별
     const result = getRoundWinner(
-      currentRoundState.p1Pick,
-      currentRoundState.p2Pick
+      state.p1Pick,
+      state.p2Pick
     );
     if (result === DRAW) {
       dispatch(setRoundResult({ roundResult: result }));
     } else {
       dispatch(setRoundResult({ roundResult: result }));
       dispatch(
-        updateScore({ set: currentRoundState.currentSet, winner: result })
+        updateScore({ set: state.currentSet, winner: result })
       );
     }
 
     // 어느 한쪽이 3라운드 승리 시 해당 세트 승자 판별
-    const currensSetState = getState().gameReducer;
-    if (currensSetState.scores[currensSetState.currentSet - 1].p1 === 3) {
+    state = getState().gameReducer;
+    if (state.scores[state.currentSet - 1].p1 === 3) {
       dispatch(
-        updateSetWinner({ set: currensSetState.currentSet, winner: P1 })
+        updateSetWinner({ set: state.currentSet, winner: P1 })
       );
       dispatch(increaseSet());
     } else if (
-      currensSetState.scores[currensSetState.currentSet - 1].p2 === 3
+      state.scores[state.currentSet - 1].p2 === 3
     ) {
       dispatch(
-        updateSetWinner({ set: currensSetState.currentSet, winner: P2 })
+        updateSetWinner({ set: state.currentSet, winner: P2 })
       );
       dispatch(increaseSet());
     }
 
     // 어느 한쪽이 3세트 승리 시 최종 승자 판별
-    const currentSetScores = getState().gameReducer.setScores;
-    if (currentSetScores.p1 === 3) {
+    state = getState().gameReducer;
+    if (state.setScores.p1 === 3) {
       dispatch(updateWinner(P1));
-    } else if (currentSetScores.p2 === 3) {
+    } else if (state.setScores.p2 === 3) {
       dispatch(updateWinner(P2));
     }
   }
